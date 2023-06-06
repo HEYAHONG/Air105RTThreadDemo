@@ -1,0 +1,3 @@
+[submodule "rt-thread-no-bsp"]
+	path = rt-thread-no-bsp
+	url = ../../HEYAHONG/rt-thread-no-bsp

@@ -1,0 +1,27 @@
+import os
+Import('RTT_ROOT')
+from building import *
+
+# get current directory
+cwd = GetCurrentDir()
+
+os.chdir(cwd)
+
+#生成RC_fs.c
+Execute('PATH=.  &&  fsgen fs RC_fs.c')
+
+
+
+# The set of source files associated with this SConscript file.
+src = Split("""
+RC.c
+RC.h
+RC_fs.c
+""")
+
+
+path = [cwd, str(Dir('#'))]
+
+group = DefineGroup('rc', src, depend = [''], CPPPATH = path)
+
+Return('group')

@@ -1,0 +1,121 @@
+#!/bin/bash
+if [ -z "${PROJECT_PATH_FIX}" ]
+then
+	#设置ROOT_PATH变量
+	self_path=""
+	# shellcheck disable=SC2128  # ignore array expansion warning
+	if [ -n "${BASH_SOURCE-}" ]
+	then
+	self_path="${BASH_SOURCE}"
+	elif [ -n "${ZSH_VERSION-}" ]
+	then
+	self_path="${(%):-%x}"
+	else
+	echo -e "\033[41;37m不能获取工作目录\033[40;37m";
+	return 1
+	fi
+
+	# shellcheck disable=SC2169,SC2169,SC2039  # unreachable with 'dash'
+	if [[ "$OSTYPE" == "darwin"* ]]; then
+	# convert possibly relative path to absolute
+	script_dir="$(realpath_int "${self_path}")"
+	# resolve any ../ references to make the path shorter
+	script_dir="$(cd "${script_dir}" || exit 1; pwd)"
+	else
+	# convert to full path and get the directory name of that
+	script_name="$(readlink -f "${self_path}")"
+	script_dir="$(dirname "${script_name}")"
+	fi
+	export WORKDIR="${script_dir}";
+	export PROJECT_PATH_FIX=${WORKDIR}
+else
+	export WORKDIR=${PROJECT_PATH_FIX}
+fi
+
+#检查工具是否存在,$1为待检查的工具名。
+function CheckTool
+{
+	[  -n "$1"  ] ||
+	{
+		echo -e  "\033[41;37mCheckTool 参数错误!!\r\n\033[40;37m";
+		return 255;
+	};
+	ToolPath=`which $1`;
+	[ -e "$ToolPath" ] ||
+	{
+		 echo -e "\033[41;37m$1 不存在，请先安装此工具\r\n\033[40;37m";
+		 return 255;
+	};
+	return 0;
+}
+
+#检查必要的工具
+CheckTool git
+[ $? -eq 0 ] || exit;
+CheckTool patch
+[ $? -eq 0 ] || exit;
+CheckTool ls
+[ $? -eq 0 ] || exit;
+if [ -n "${WIN32}" ]
+then
+	CheckTool cmd
+	[ $? -eq 0 ] || exit;
+fi
+CheckTool python
+[ $? -eq 0 ] || exit;
+CheckTool pkgs
+[ $? -eq 0 ] || exit;
+CheckTool scons
+[ $? -eq 0 ] || exit;
+CheckTool cmake
+[ $? -eq 0 ] || exit;
+CheckTool ninja
+[ $? -eq 0 ] || exit;
+CheckTool mkdir
+[ $? -eq 0 ] || exit;
+#执行程序(有些程序需要使用cmd.exe运行)
+function RunProgram
+{
+if [ -n "${WIN32}" ]
+then
+        cmd /c $@
+else
+	$@
+fi
+}
+
+#menuconfig
+function RunMenuConfig
+{
+	RunProgram menuconfig $@
+}
+
+#pkgs
+function RunPkgs
+{
+	RunProgram  pkgs $@
+}
+
+echo -e  "\033[44;37m工程目录:${PROJECT_PATH_FIX}\r\n\033[40;37m";
+
+
+echo -e   "\033[44;37m下载第三方源代码\r\n\033[40;37m";
+cd ${WORKDIR}
+git submodule update --init --force --recursive
+[ $? -eq 0 ] || exit;
+
+echo -e   "\033[44;37m生成工程文件\r\n\033[40;37m";
+cd ${WORKDIR}
+RunPkgs --update
+[ $? -eq 0 ] || exit;
+RunProgram scons --target=cmake
+[ $? -eq 0 ] || exit;
+mkdir -p ${WORKDIR}/build
+cd ${WORKDIR}/build
+cmake -G "CodeBlocks - Ninja" ${WORKDIR}
+cd  ${WORKDIR}
+
+echo -e   "\033[44;37m处理已完成!请打开build目录下的工程文件进行编译调试\r\n\033[40;37m";
+
+
+
