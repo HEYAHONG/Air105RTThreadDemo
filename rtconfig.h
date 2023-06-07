@@ -116,7 +116,12 @@
 #define RT_USING_SERIAL
 #define RT_USING_SERIAL_V2
 #define RT_SERIAL_USING_DMA
+#define RT_USING_I2C
+#define RT_USING_I2C_BITOPS
 #define RT_USING_PIN
+#define RT_USING_RTC
+#define RT_USING_ALARM
+#define RT_USING_SPI
 #define RT_USING_WDT
 
 /* Using USB */
@@ -138,6 +143,19 @@
 
 /* Network */
 
+#define RT_USING_SAL
+#define SAL_INTERNET_CHECK
+
+/* Docking with protocol stacks */
+
+#define SAL_USING_POSIX
+#define RT_USING_NETDEV
+#define NETDEV_USING_IFCONFIG
+#define NETDEV_USING_PING
+#define NETDEV_USING_NETSTAT
+#define NETDEV_USING_AUTO_DEFAULT
+#define NETDEV_IPV4 1
+#define NETDEV_IPV6 0
 
 /* Utilities */
 
@@ -273,6 +291,24 @@
 #define BSP_USING_UART0
 #define BSP_UART0_RX_BUFSIZE 256
 #define BSP_UART0_TX_BUFSIZE 0
+#define BSP_USING_UART1
+#define BSP_UART1_RX_BUFSIZE 256
+#define BSP_UART1_TX_BUFSIZE 0
+#define BSP_USING_UART2
+#define BSP_UART2_RX_BUFSIZE 256
+#define BSP_UART2_TX_BUFSIZE 256
+#define BSP_USING_UART3
+#define BSP_UART3_RX_BUFSIZE 256
+#define BSP_UART3_TX_BUFSIZE 256
+#define BSP_USING_I2C
+#define I2C_BUS_NAME "i2c"
+#define BSP_USING_SPI
+#define BSP_USING_HSPI0
+#define BSP_USING_SPI0
+#define BSP_USING_SPI1
+#define BSP_USING_SPI2
+#define BSP_USING_SPI0S
+#define BSP_USING_ONCHIP_RTC
 #define BSP_USING_WDT
 
 #endif
