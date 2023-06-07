@@ -1,4 +1,4 @@
-/*
+Ôªø/*
  * Copyright (c) 2006-2022, RT-Thread Development Team
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -12,28 +12,16 @@
 #include <rtdevice.h>
 #include <board.h>
 #include "drv_gpio.h"
-#include "rc.h"
+#include "appstack.h"
 
 int main(void)
 {
-    {
-        //¥Ú”°banner
-        char *banner = (char *)RCGetHandle("banner");
-        if (banner != NULL)
-            printf("%s", banner);
-    }
-
-    {
-        //¥Ú”° £”‡ƒ⁄¥Ê
-        rt_size_t total = 0, used = 0;
-        rt_memory_info(&total, &used, NULL);
-        printf("\r\nTotal Memory:%d Bytes,Used Memory:%d Bytes\r\n", (int)total, (int)used);
-    }
+    App_Init();
 
 
     while (1)
     {
-
+        App_Loop();
         rt_thread_mdelay(1000);
     }
 }
