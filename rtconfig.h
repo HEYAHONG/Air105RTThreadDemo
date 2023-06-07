@@ -38,6 +38,7 @@
 #define RT_USING_MEMPOOL
 #define RT_USING_SMALL_MEM
 #define RT_USING_SMALL_MEM_AS_HEAP
+#define RT_USING_HEAP_ISR
 #define RT_USING_HEAP
 
 /* Kernel Device Object */
