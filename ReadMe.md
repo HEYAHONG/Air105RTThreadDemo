@@ -44,6 +44,10 @@
   const unsigned char * RCGetHandle(const char * name);
   ```
 
+# 测试截图
+
+![Air105](doc/Air105.png)
+
 # 编译
 
 ## 工具
