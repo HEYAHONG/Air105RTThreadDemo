@@ -12,37 +12,28 @@
 #include <rtdevice.h>
 #include <board.h>
 #include "drv_gpio.h"
-
-/* defined the LED2 pin: PD14 */
-#define LED0_PIN    GPIOD_14
-/* defined the LED3 pin: PD15 */
-#define LED1_PIN    GPIOD_15
-/* defined the LED4 pin: PC3 */
-#define LED2_PIN    GPIOC_03
+#include "rc.h"
 
 int main(void)
 {
-    uint32_t Speed = 200;
-    /* set LED2 pin mode to output */
-    rt_pin_mode(LED0_PIN, PIN_MODE_OUTPUT);
-    /* set LED3 pin mode to output */
-    rt_pin_mode(LED1_PIN, PIN_MODE_OUTPUT);
-    /* set LED4 pin mode to output */
-    rt_pin_mode(LED2_PIN, PIN_MODE_OUTPUT);
+    {
+        //¥Ú”°banner
+        char *banner = (char *)RCGetHandle("banner");
+        if (banner != NULL)
+            printf("%s", banner);
+    }
+
+    {
+        //¥Ú”° £”‡ƒ⁄¥Ê
+        rt_size_t total = 0, used = 0;
+        rt_memory_info(&total, &used, NULL);
+        printf("\r\nTotal Memory:%d Bytes,Used Memory:%d Bytes\r\n", (int)total, (int)used);
+    }
+
 
     while (1)
     {
-        rt_pin_write(LED0_PIN, PIN_LOW);
-        rt_thread_mdelay(Speed);
-        rt_pin_write(LED1_PIN, PIN_LOW);
-        rt_thread_mdelay(Speed);
-        rt_pin_write(LED2_PIN, PIN_LOW);
-        rt_thread_mdelay(Speed);
-        rt_pin_write(LED0_PIN, PIN_HIGH);
-        rt_thread_mdelay(Speed);
-        rt_pin_write(LED1_PIN, PIN_HIGH);
-        rt_thread_mdelay(Speed);
-        rt_pin_write(LED2_PIN, PIN_HIGH);
-        rt_thread_mdelay(Speed);
+
+        rt_thread_mdelay(1000);
     }
 }
