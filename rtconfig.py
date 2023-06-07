@@ -57,7 +57,8 @@ if PLATFORM == 'gcc':
     else:
         CFLAGS += ' -O2'
 
-    CXXFLAGS = CFLAGS + " -fno-rtti -fno-exceptions  "
+    CXXFLAGS = CFLAGS + " -std=c++2a -fno-rtti -fno-exceptions  "
+    CFLAGS += ' -std=c2x '
 
     POST_ACTION = OBJCPY + ' -O binary $TARGET rtthread.bin\n' + SIZE + ' $TARGET \n'
     POST_ACTION += 'python ./makesoc.py'
