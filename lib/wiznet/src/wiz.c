@@ -334,6 +334,10 @@ static void wiz_reset(void)
 //    rt_pin_write(WIZ_RST_PIN, PIN_HIGH);
 //    rt_thread_mdelay(2);
 
+    setPHYCFGR(getPHYCFGR()&PHYCFGR_RST);
+    rt_thread_mdelay(5);
+    setPHYCFGR(getPHYCFGR()|0x01);
+
 }
 
 #ifdef LIB_WIZNET_USING_DHCP
