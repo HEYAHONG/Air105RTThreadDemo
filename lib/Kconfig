@@ -1,0 +1,5 @@
+menu "Local libraries"
+
+source "$BSP_DIR/lib/wiznet/Kconfig"
+
+endmenu

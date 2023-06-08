@@ -133,6 +133,13 @@
 
 /* POSIX (Portable Operating System Interface) layer */
 
+#define RT_USING_POSIX_FS
+#define RT_USING_POSIX_DEVIO
+#define RT_USING_POSIX_STDIO
+#define RT_USING_POSIX_DELAY
+#define RT_USING_POSIX_CLOCK
+#define RT_USING_PTHREADS
+#define PTHREAD_NUM_MAX 8
 
 /* Interprocess Communication (IPC) */
 
@@ -283,6 +290,10 @@
 /* Onboard Peripheral Drivers */
 
 #define BSP_USING_SHELL_TO_USART
+#define BSP_USING_ETH
+#define EXTERNAL_PHY_ADDRESS 0x00
+#define WIZ_SPI_BUS "spi2"
+#define WIZ_SPI_CS 19
 
 /* On-chip Peripheral Drivers */
 
@@ -310,5 +321,16 @@
 #define BSP_USING_SPI0S
 #define BSP_USING_ONCHIP_RTC
 #define BSP_USING_WDT
+
+/* Local libraries */
+
+#define LIB_USING_WIZNET
+#define LIB_WIZNET_USING_W5500
+
+/* WIZnet device configure */
+
+#define LIB_WIZNET_SPI_DEVICE "wiz"
+#define LIB_WIZNET_USING_DHCP
+#define LIB_WIZNET_USING_PING
 
 #endif

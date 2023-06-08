@@ -2,6 +2,19 @@
 
 这是一个使用[rt-thread](https://www.rt-thread.org/)开发[Air105](http://air105.cn)的例子(仅供测试)。
 
+## 以太网
+
+Air105本身不支持以太网,但可以使用W5500作为全硬件以太网栈。默认情况下占用SPI2（4个引脚）:
+
+| Air105引脚 | 功能      |
+| ---------- | --------- |
+| PB4/GPIO20 | SPI2_MOSI |
+| PB3/GPIO19 | SPI2_CSN  |
+| PB2/GPIO18 | SPI2_CLK  |
+| PB5/GPIO21 | SPI2_MISO |
+
+注意:W5500对电源要求极高，需要支持较大的瞬时电流,电源不稳定将导致Air105运行不稳定。
+
 ## 源代码下载
 
 **注意:由于换行符问题,请在Rt-Thread Env中使用git下载或者下载后在下载目录执行git reset --hard。**

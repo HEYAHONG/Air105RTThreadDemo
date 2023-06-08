@@ -1,0 +1,69 @@
+menuconfig LIB_USING_WIZNET
+    bool "WIZnet: WIZnet TCP/IP chips SAL framework implement"
+    default n
+    select RT_USING_PIN
+    select RT_USING_SPI
+    select RT_USING_LIBC if RT_VER_NUM < 0x40100
+    select RT_USING_SAL
+    select RT_USING_TIMER_SOFT
+
+if LIB_USING_WIZNET
+
+    choice
+        prompt "WIZnet device type"
+        default LIB_WIZNET_USING_W5500
+        help
+            Select the wiznet type
+
+        config LIB_WIZNET_USING_W5500
+            bool "W5500"
+
+    endchoice
+
+    config LIB_WIZNET_DEVICE_EXTERN_CONFIG
+         bool
+         default n
+
+    if !LIB_WIZNET_DEVICE_EXTERN_CONFIG
+        menu "WIZnet device configure"
+
+            config LIB_WIZNET_SPI_DEVICE
+                string "SPI device name"
+                default "wiz"
+        endmenu
+    endif
+
+    config LIB_WIZNET_USING_DHCP
+        bool "Enable alloc IP address through DHCP"
+        default y
+
+    if !LIB_WIZNET_USING_DHCP
+
+        menu "WIZnet network configure"
+
+            config LIB_WIZNET_IPADDR
+                string "IPv4: IP address"
+                default 192.168.1.10
+
+            config LIB_WIZNET_GWADDR
+                string "IPv4: Gateway address"
+                default 192.168.1.1
+
+            config LIB_WIZNET_MSKADDR
+                string "IPv4: Mask address"
+                default 255.255.255.0
+
+        endmenu
+
+    endif
+
+    config LIB_WIZNET_USING_PING
+        bool "Enable Ping utility"
+        default y
+
+    config LIB_WIZNET_DEBUG
+        bool "Enable debug log output"
+        default n
+
+
+endif

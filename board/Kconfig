@@ -25,7 +25,7 @@ menu "Onboard Peripheral Drivers"
 
     config BSP_USING_ETH
         bool "Enable Ethernet Driver"
-        select PKG_USING_WIZNET
+        select LIB_USING_WIZNET
         select BSP_USING_SPI
         default n
         if BSP_USING_ETH
