@@ -23,12 +23,12 @@ menu "Onboard Peripheral Drivers"
         select RT_SFUD_USING_SFDP
         default n
 
-    config BSP_USING_ETH
-        bool "Enable Ethernet Driver"
+    config BSP_USING_ETH_W5500
+        bool "Enable Ethernet Driver(W5500)"
         select LIB_USING_WIZNET
         select BSP_USING_SPI
         default n
-        if BSP_USING_ETH
+        if BSP_USING_ETH_W5500
             config EXTERNAL_PHY_ADDRESS
                 hex
                 default 0x00

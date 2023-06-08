@@ -290,7 +290,7 @@
 /* Onboard Peripheral Drivers */
 
 #define BSP_USING_SHELL_TO_USART
-#define BSP_USING_ETH
+#define BSP_USING_ETH_W5500
 #define EXTERNAL_PHY_ADDRESS 0x00
 #define WIZ_SPI_BUS "spi2"
 #define WIZ_SPI_CS 19

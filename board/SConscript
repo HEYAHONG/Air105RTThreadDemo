@@ -11,7 +11,7 @@ src = Split('''
 board.c
 ''')
 
-if GetDepend(['BSP_USING_ETH']):
+if GetDepend(['BSP_USING_ETH_W5500']):
     src += Glob('ports/w5500_device.c')
 
 if GetDepend(['BSP_USING_SPI_FLASH']):
