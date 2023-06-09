@@ -1,4 +1,5 @@
 import os
+import sys
 Import('RTT_ROOT')
 from building import *
 
@@ -6,6 +7,9 @@ from building import *
 cwd = GetCurrentDir()
 
 os.chdir(cwd)
+
+if not sys.platform.startswith("win32"):
+    Execute("c++ fsgen.cpp -o fsgen")
 
 #生成RC_fs.c
 Execute('PATH=.  &&  fsgen fs RC_fs.c')
