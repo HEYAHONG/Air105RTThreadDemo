@@ -17,7 +17,7 @@ SECTIONS
     } >FLASH
     .text :
     {
-        . = ALIGN(4);
+        . = ALIGN(1024);
         __isr_start_address = .;
         _stext = .;
         KEEP(*(.isr_vector))            /* Startup code */
@@ -31,7 +31,10 @@ SECTIONS
         *(.glue_7)
         *(.glue_7t)
         *(.gnu.linkonce.t*)
-
+        
+        . = ALIGN(4);
+        *(.ARM.extab*)
+        
         /* section information for finsh shell */
         . = ALIGN(4);
         __fsymtab_start = .;
