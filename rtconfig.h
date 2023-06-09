@@ -147,6 +147,7 @@
 /* Socket is in the 'Network' category */
 
 #define RT_USING_CPLUSPLUS
+#define RT_USING_CPLUSPLUS11
 
 /* Network */
 
