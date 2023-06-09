@@ -4,7 +4,7 @@
 #include "rtthread.h"
 #include "appstack.h"
 #include "string"
-#include "rc.h"
+#include "RC.h"
 #ifdef LIB_USING_JSONCPP
 #include "json/value.h"
 #include "json/writer.h"
