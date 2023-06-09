@@ -74,7 +74,17 @@ Air105本身不支持以太网,但可以使用W5500作为全硬件以太网栈�
 
 - 打开Rt-Thread Env工具(运行env.exe,最好使用管理员权限),切换至工程目录(即bootstrap.bat所在目录)。
 - 运行bootstrap.bat,将初始化工程并产生build/rtthread.cbp(可采用CodeBlocks打开编辑)。
-- 使用scons命令执行编译并打包命令。
+- 使用scons命令执行编译并打包。
+
+注意:bootstrap.bat通常只需要在需要更新build/rtthread.cbp时使用,最终生成rtthread_air105.soc仍然使用scons命令。
+
+# 烧录
+
+Air105是通过UART0烧录的,烧录格式为.soc,烧录工具为Luatools。
+
+详细工具请查看:https://wiki.luatos.com/pages/tools.html
+
+注意:Luatools下载后默认会占用串口,如需其它工具打开手动关闭Luatools打开的串口。
 
 
 # 调试
@@ -82,3 +92,5 @@ Air105本身不支持以太网,但可以使用W5500作为全硬件以太网栈�
 ## 串口
 
 UART0 :1500000 8N1
+
+由于串口的波特率较高,有些工具可能不能正常打开(如putty 0.78)。
