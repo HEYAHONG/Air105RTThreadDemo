@@ -66,7 +66,7 @@ Air105本身不支持以太网,但可以使用W5500作为全硬件以太网栈�
 ## 工具
 
 - [RT-Thread Env](https://www.rt-thread.org/download.html#download-rt-thread-env-tool):RT-Thread脚本执行环境(包含编译器及配置工具)。注意:需要v1.3.5或更新版本,否则可能失败。
-- [CMake](https://cmake.org/):用于生成*.cbp工程。
+- [CMake](https://cmake.org/):用于生成*.cbp工程。注意:安装时需要添加CMake到PATH。![CMake_Install_set_path](doc/CMake_Install_set_path.png)
 
 ## 编译步骤
 
