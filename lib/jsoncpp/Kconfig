@@ -1,0 +1,5 @@
+menuconfig LIB_USING_JSONCPP
+    bool "jsoncpp: A C++ library for interacting with JSON. "
+    default n
+    select RT_USING_CPLUSPLUS
+    select RT_USING_LIBC if RT_VER_NUM < 0x40100

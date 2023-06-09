@@ -333,5 +333,6 @@
 #define LIB_WIZNET_SPI_DEVICE "wiz"
 #define LIB_WIZNET_USING_DHCP
 #define LIB_WIZNET_USING_PING
+#define LIB_USING_JSONCPP
 
 #endif

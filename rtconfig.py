@@ -57,7 +57,7 @@ if PLATFORM == 'gcc':
     else:
         CFLAGS += ' -O2'
 
-    CXXFLAGS = CFLAGS + " -std=c++2a -fno-rtti   "
+    CXXFLAGS = CFLAGS + " -std=c++2a -fno-rtti  -Wno-psabi "
     CFLAGS += ' -std=c2x '
 
     POST_ACTION = OBJCPY + ' -O binary $TARGET rtthread.bin\n' + SIZE + ' $TARGET \n'

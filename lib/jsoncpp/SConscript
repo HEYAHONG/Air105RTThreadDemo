@@ -1,0 +1,13 @@
+from building import *
+
+cwd  = GetCurrentDir()
+
+src = Glob('jsoncpp/src/lib_json/*.cpp')
+    
+CPPPATH = [
+cwd + '/jsoncpp/include'
+]
+
+group = DefineGroup('jsoncpp', src, depend = ['LIB_USING_JSONCPP'], CPPPATH = CPPPATH)
+
+Return('group')

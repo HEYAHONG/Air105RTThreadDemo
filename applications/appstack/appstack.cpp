@@ -5,6 +5,10 @@
 #include "appstack.h"
 #include "string"
 #include "rc.h"
+#ifdef LIB_USING_JSONCPP
+#include "json/value.h"
+#include "json/writer.h"
+#endif // LIB_USING_JSONCPP
 
 void App_Init()
 {
@@ -35,6 +39,15 @@ void App_Init()
         rt_memory_info(&total, &used, NULL);
         printf("\r\nTotal Memory:%d Bytes,Used Memory:%d Bytes\r\n", (int)total, (int)used);
     }
+#ifdef LIB_USING_JSONCPP
+    {
+        //测试jsoncpp
+        Json::Value value;
+        value["name"]="jsoncpp";
+        Json::StyledWriter writer;
+        printf("json parser:\r\n%s\r\n",writer.write(value).c_str());
+    }
+#endif // LIB_USING_JSONCPP
 }
 
 void App_Loop()
