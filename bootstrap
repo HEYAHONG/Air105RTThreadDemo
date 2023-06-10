@@ -153,6 +153,17 @@ cmake -G "CodeBlocks - Ninja" ${WORKDIR}
 cd  ${WORKDIR}
 
 echo -e   "\033[44;37m处理已完成!请打开build目录下的工程文件进行编译调试\r\n\033[40;37m";
-
+if [ -z "${WIN32}" ]
+then
+	export BSP_DIR=${WORKDIR}
+	export RTT_DIR=${WORKDIR}/rt-thread-no-bsp/rt-thread-no-bsp/
+	if [ -d ~/.env/packages ]
+	then
+		export PKGS_DIR=~/.env/packages
+	else
+		export PKGS_DIR=${PKGS_ROOT}
+	fi
+	exec /bin/bash
+fi
 
 
