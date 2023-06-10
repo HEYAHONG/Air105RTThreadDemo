@@ -49,6 +49,35 @@ function CheckTool
 	return 0;
 }
 
+if [ -z "${WIN32}" ]
+then
+#加载ENV.sh
+        if [ -f ~/.env/env.sh ]
+        then
+                source ~/.env/env.sh
+        else
+                CheckTool wget
+                [ $? -eq 0 ] || exit;
+                CheckTool apt-get
+                [ $? -eq 0 ] || exit;
+                cd /tmp
+                wget https://gitee.com/RT-Thread-Mirror/env/raw/master/install_ubuntu.sh -qO /tmp/install_ubuntu.sh
+		if [ -f /tmp/install_ubuntu.sh ]
+		then
+			/bin/bash /tmp/install_ubuntu.sh --gitee
+			rm /tmp/install_ubuntu.sh
+		fi
+                cd ${WORKDIR}
+                if [  -f ~/.env/env.sh ]
+                then
+                        source ~/.env/env.sh
+                else
+                        echo -e "\033[41;37m安装Env环境失败\r\n\033[40;37m";
+                        exit -1
+		fi
+        fi
+fi
+
 #检查必要的工具
 CheckTool git
 [ $? -eq 0 ] || exit;
@@ -61,8 +90,14 @@ then
 	CheckTool cmd
 	[ $? -eq 0 ] || exit;
 fi
-CheckTool python
-[ $? -eq 0 ] || exit;
+if [ -n "${WIN32}" ]
+then
+	CheckTool python
+	[ $? -eq 0 ] || exit;
+else
+	CheckTool python3
+        [ $? -eq 0 ] || exit;
+fi
 CheckTool pkgs
 [ $? -eq 0 ] || exit;
 CheckTool scons
@@ -73,6 +108,8 @@ CheckTool ninja
 [ $? -eq 0 ] || exit;
 CheckTool mkdir
 [ $? -eq 0 ] || exit;
+
+
 #执行程序(有些程序需要使用cmd.exe运行)
 function RunProgram
 {

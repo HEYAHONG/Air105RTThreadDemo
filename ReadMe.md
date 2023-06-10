@@ -31,9 +31,15 @@ Air105本身不支持以太网,但可以使用W5500作为全硬件以太网栈�
 
 ## 脚本说明
 
+### Windows
+
 所有脚本均需要在Rt-Thread Env中执行。
 
 - bootstrap.bat:工程初始化脚本
+
+### Ubuntu
+
+- bootstrap :工程初始化脚本
 
 ## 资源文件
 
@@ -63,12 +69,14 @@ Air105本身不支持以太网,但可以使用W5500作为全硬件以太网栈�
 
 # 编译
 
-## 工具
+## Windows
+
+### 工具
 
 - [RT-Thread Env](https://www.rt-thread.org/download.html#download-rt-thread-env-tool):RT-Thread脚本执行环境(包含编译器及配置工具)。注意:需要v1.3.5或更新版本,否则可能失败。
 - [CMake](https://cmake.org/):用于生成*.cbp工程。注意:安装时需要添加CMake到PATH。![CMake_Install_set_path](doc/CMake_Install_set_path.png)
 
-## 编译步骤
+### 编译步骤
 
 编译操作同bsp下的编译操作,只是需要先使用bootstrap.bat初始化工程。
 
@@ -77,6 +85,41 @@ Air105本身不支持以太网,但可以使用W5500作为全硬件以太网栈�
 - 使用scons命令执行编译并打包。
 
 注意:bootstrap.bat通常只需要在需要更新build/rtthread.cbp时使用,最终生成rtthread_air105.soc仍然使用scons命令。
+
+## Ubuntu
+
+### 工具(软件包)
+
+- build-essential
+- gcc-arm-none-eabi：arm编译工具链
+- python3
+- python3-requests
+- scons
+- wget
+- git
+- cmake
+
+可使用以下命令安装:
+
+```bash
+sudo apt-get update
+sudo apt-get install -yy build-essential gcc-arm-none-eabi python3  python3-requests scons wget git cmake
+```
+
+
+
+### 编译步骤
+
+编译步骤同Windows,使用bootstrap初始化工程,使用scons编译固件并打包。
+
+注意:如需进入env环境（如执行menuconfig命令）,需要先执行:
+
+```bash
+#以下命令仅当bootstrap成功后有效
+source ~/.env/env.sh
+```
+
+
 
 # 烧录
 
