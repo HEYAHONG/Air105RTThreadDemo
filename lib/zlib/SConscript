@@ -1,0 +1,13 @@
+from building import *
+
+cwd  = GetCurrentDir()
+
+src = Glob('zlib/*.c')
+    
+CPPPATH = [
+cwd + '/zlib'
+]
+
+group = DefineGroup('zlib', src, depend = ['LIB_USING_ZLIB'], CPPPATH = CPPPATH,CFLAGS=" -Wno-old-style-definition -DHAVE_STDINT_H -DHAVE_STDDEF_H -DZ_HAVE_UNISTD_H ")
+
+Return('group')

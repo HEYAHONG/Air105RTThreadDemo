@@ -6,6 +6,7 @@ menuconfig LIB_USING_WIZNET
     select RT_USING_LIBC if RT_VER_NUM < 0x40100
     select RT_USING_SAL
     select RT_USING_TIMER_SOFT
+    depends on !PKG_USING_WIZNET
 
 if LIB_USING_WIZNET
 

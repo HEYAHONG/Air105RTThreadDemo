@@ -1,0 +1,7 @@
+menuconfig LIB_USING_ZLIB
+    bool "zlib: A Massively Spiffy Yet Delicately Unobtrusive Compression Library "
+    default n
+    select RT_USING_LIBC if RT_VER_NUM < 0x40100
+    select RT_USING_DFS
+    select DFS_USING_POSIX
+    depends on !PKG_USING_ZLIB
