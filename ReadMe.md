@@ -98,12 +98,13 @@ Air105本身不支持以太网,但可以使用W5500作为全硬件以太网栈�
 - wget
 - git
 - cmake
+- ninja-build
 
 可使用以下命令安装:
 
 ```bash
 sudo apt-get update
-sudo apt-get install -yy build-essential gcc-arm-none-eabi python3  python3-requests scons wget git cmake
+sudo apt-get install -yy build-essential gcc-arm-none-eabi python3  python3-requests scons wget git cmake ninja-build
 ```
 
 
