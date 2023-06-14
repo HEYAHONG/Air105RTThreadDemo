@@ -39,6 +39,13 @@ menu "Onboard Peripheral Drivers"
                 int "WIZ SPI bus cs pin"
                 default 19
         endif
+    config BSP_USING_U8G2_HWI2C
+        bool "Enable U8G2 (Hardware I2C)"
+        select BSP_USING_I2C
+        select PKG_USING_U8G2_OFFICIAL
+        select U8G2_USE_CPP
+        select U8G2_USE_HW_I2C
+        default n
 
 endmenu
 

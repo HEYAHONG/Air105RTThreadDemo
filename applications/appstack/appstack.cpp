@@ -9,6 +9,7 @@
 #include "json/value.h"
 #include "json/writer.h"
 #endif // LIB_USING_JSONCPP
+#include "gui_u8g2.h"
 
 void App_Init()
 {
@@ -48,9 +49,11 @@ void App_Init()
         printf("json parser:\r\n%s\r\n",writer.write(value).c_str());
     }
 #endif // LIB_USING_JSONCPP
+
+    gui_u8g2_init();
 }
 
 void App_Loop()
 {
-
+     gui_u8g2_loop();
 }

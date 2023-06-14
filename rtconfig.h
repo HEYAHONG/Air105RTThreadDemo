@@ -205,6 +205,27 @@
 
 /* u8g2: a monochrome graphic library */
 
+#define PKG_USING_U8G2_OFFICIAL
+#define U8G2_USE_HW_I2C
+#define U8G2_I2C_DEVICE_NAME "i2c"
+#define U8G2_USE_CPP
+
+/* U8G2 Examples */
+
+
+/* full buffer examples    (fast, large RAM consumption) */
+
+
+/* page buffer examples    (slow, small RAM consumption) */
+
+
+/* u8x8 text only examples (fonts with fixed size)       */
+
+
+/* game examples */
+
+#define PKG_USING_U8G2_OFFICIAL_LATEST_VERSION
+#define PKG_U8G2_OFFICIAL_VER_NUM 0x99999
 
 /* tools packages */
 
@@ -295,6 +316,7 @@
 #define EXTERNAL_PHY_ADDRESS 0x00
 #define WIZ_SPI_BUS "spi2"
 #define WIZ_SPI_CS 19
+#define BSP_USING_U8G2_HWI2C
 
 /* On-chip Peripheral Drivers */
 
