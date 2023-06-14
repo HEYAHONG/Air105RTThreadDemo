@@ -1,2 +1,3 @@
 * -text
 .config text eol=lf
+rtconfig.h text eol=lf
