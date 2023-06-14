@@ -317,6 +317,8 @@
 #define WIZ_SPI_BUS "spi2"
 #define WIZ_SPI_CS 19
 #define BSP_USING_U8G2_HWI2C
+#define BSP_USING_U8G2_DISPLAY_CONTROLER_SSD1306
+#define BSP_USING_U8G2_DISPLAY_RESOLUTION_128X64
 
 /* On-chip Peripheral Drivers */
 
