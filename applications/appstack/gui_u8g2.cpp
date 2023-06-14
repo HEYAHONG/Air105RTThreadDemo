@@ -39,12 +39,12 @@ void gui_u8g2_init()
         //基本初始化
         display->begin();
         display->enableUTF8Print();
-        display->setFont(u8g2_font_unifont_t_chinese2);
+        display->setFont(u8g2_font_wqy16_t_gb2312);
 
         //显示Booting字样
         display->clearBuffer();
         display->setCursor(0,32);
-        display->print("Booting!");
+        display->print("启动中...");
         display->sendBuffer();
     }
 }
