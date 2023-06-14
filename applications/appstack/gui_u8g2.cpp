@@ -50,15 +50,67 @@ void gui_u8g2_loop()
 #define DISPLAY DISPLAY_DEFINE2(DISPLAY_CONTROLER,DISPLAY_RESOLUTION,DISPLAY_NAME)
 
 static DISPLAY *display=NULL;
+static void gui_thread_entry(void *parameter)
+{
+    static DISPLAY *display=(DISPLAY *)parameter;
+    if(display==NULL)
+    {
+        return;
+    }
+
+    //显示启动中字样
+    display->setFont(u8g2_font_wqy12_t_gb2312);
+    display->clearBuffer();
+    display->setCursor(0,32);
+    display->print("启动中...");
+    display->sendBuffer();
+    rt_thread_mdelay(400);
+
+    display->setFont(u8g2_font_wqy13_t_gb2312);
+    display->clearBuffer();
+    display->setCursor(0,32);
+    display->print("启动中...");
+    display->sendBuffer();
+    rt_thread_mdelay(400);
+
+    display->setFont(u8g2_font_wqy14_t_gb2312);
+    display->clearBuffer();
+    display->setCursor(0,32);
+    display->print("启动中...");
+    display->sendBuffer();
+    rt_thread_mdelay(400);
+
+    display->setFont(u8g2_font_wqy15_t_gb2312);
+    display->clearBuffer();
+    display->setCursor(0,32);
+    display->print("启动中...");
+    display->sendBuffer();
+    rt_thread_mdelay(400);
+
+    display->setFont(u8g2_font_wqy16_t_gb2312);
+    display->clearBuffer();
+    display->setCursor(0,32);
+    display->print("启动中...");
+    display->sendBuffer();
+    rt_thread_mdelay(400);
+
+
+    while(true)
+    {
+        rt_thread_mdelay(25);
+    }
+}
+
+
 void gui_u8g2_init()
 {
     {
+        //检查I2C总线设备是否存在
         struct rt_i2c_bus_device *i2cbus=rt_i2c_bus_device_find(U8G2_I2C_DEVICE_NAME);
         if(i2cbus==NULL)
         {
             return;
         }
-
     }
 
     //初始化U8G2
@@ -68,13 +120,13 @@ void gui_u8g2_init()
         //基本初始化
         display->begin();
         display->enableUTF8Print();
-        display->setFont(u8g2_font_wqy16_t_gb2312);
 
-        //显示Booting字样
-        display->clearBuffer();
-        display->setCursor(0,32);
-        display->print("启动中...");
-        display->sendBuffer();
+        rt_thread_t tid=rt_thread_create("gui",gui_thread_entry,display, RT_MAIN_THREAD_STACK_SIZE, RT_MAIN_THREAD_PRIORITY, 20);
+        if(tid!=NULL)
+        {
+            rt_thread_startup(tid);
+        }
+
     }
 }
 void gui_u8g2_loop()
