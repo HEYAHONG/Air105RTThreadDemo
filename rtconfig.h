@@ -274,7 +274,7 @@
 /* Arduino libraries */
 
 
-/* Projects */
+/* Projects and Demos */
 
 
 /* Sensors */
@@ -359,5 +359,6 @@
 #define LIB_WIZNET_USING_PING
 #define LIB_USING_JSONCPP
 #define LIB_USING_ZLIB
+#define LIB_USING_TINYXML2
 
 #endif

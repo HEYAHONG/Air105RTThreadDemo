@@ -3,5 +3,5 @@ menu "Local libraries"
 source "$BSP_DIR/lib/wiznet/Kconfig"
 source "$BSP_DIR/lib/jsoncpp/Kconfig"
 source "$BSP_DIR/lib/zlib/Kconfig"
-
+source "$BSP_DIR/lib/tinyxml2/Kconfig"
 endmenu

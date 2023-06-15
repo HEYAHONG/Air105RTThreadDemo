@@ -1,0 +1,13 @@
+from building import *
+
+cwd  = GetCurrentDir()
+
+src = Glob('tinyxml2/tinyxml2.cpp')
+    
+CPPPATH = [
+cwd + '/tinyxml2/'
+]
+
+group = DefineGroup('tinyxml2', src, depend = ['LIB_USING_TINYXML2'], CPPPATH = CPPPATH)
+
+Return('group')

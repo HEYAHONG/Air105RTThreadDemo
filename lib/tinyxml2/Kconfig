@@ -1,0 +1,5 @@
+menuconfig LIB_USING_TINYXML2
+    bool "TinyXML2: TinyXML2 is a simple, small, efficient, C++ XML parser that can be easily integrated into other programs.  "
+    default n
+    select RT_USING_CPLUSPLUS
+    select RT_USING_LIBC if RT_VER_NUM < 0x40100
