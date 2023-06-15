@@ -23,6 +23,9 @@ RC.h
 RC_fs.c
 """)
 
+if GetDepend(['RT_USING_CPLUSPLUS']):
+    src += Glob('RC_*.cpp')
+
 
 path = [cwd, str(Dir('#'))]
 

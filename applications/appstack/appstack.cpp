@@ -4,7 +4,7 @@
 #include "rtthread.h"
 #include "appstack.h"
 #include "string"
-#include "RC.h"
+#include "RC_cpp.h"
 #ifdef LIB_USING_JSONCPP
 #include "json/value.h"
 #include "json/writer.h"
@@ -18,9 +18,20 @@ void App_Init()
     }
     {
         //打印banner
-        char *banner = (char *)RCGetHandle("banner");
+        char *banner = (char *)RCGetFileHandle("/banner");
         if (banner != NULL)
             printf("%s", banner);
+    }
+    {
+        printf("RC List:\r\n");
+        std::vector<std::string> List=RCGetFileList();
+        for(const std::string &filename:List)
+        {
+            printf("\t\t%s\r\n",filename.c_str());
+        }
+    }
+    {
+
     }
 #ifdef RT_USING_DFS_TMPFS
     {
