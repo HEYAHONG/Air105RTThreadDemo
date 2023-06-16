@@ -61,10 +61,19 @@ static void gui_thread_entry(void *parameter)
 
 
     u8g2app app;
+
+    //传递初始化事件
     app.process_event((u8g2app::init_event)display);
+
     while(true)
     {
+        //调用APP内部的循环
+        app.running();
+
+        //延时
         rt_thread_mdelay(25);
+
+        //传递一些事件
         if(app.current_state()==u8g2app::U8G2APP_IDLE_RUNNING)
         {
             app.process_event((u8g2app::idle_running_event)rt_tick_get());

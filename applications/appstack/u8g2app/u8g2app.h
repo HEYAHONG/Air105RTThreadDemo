@@ -23,11 +23,19 @@ void msleep(unsigned int msecs);
 
 
 #ifdef __cplusplus
+#include <queue>
+#include <functional>
+
 
 class u8g2app:public fsmlite::fsm<u8g2app>
 {
     friend class fsmlite::fsm<u8g2app>;
     U8G2 * display;
+    std::queue<std::function<void()>> event_queue;
+    void event_queue_add(std::function<void()> _cb)
+    {
+        event_queue.push(_cb);
+    }
 public:
     enum states
     {
@@ -40,13 +48,59 @@ public:
     {
 
     }
+
+    /*
+     * 状态机运行循环,将被外部调用多次.可在此函数中调用process_event进行状态转移,注意:不可在状态转移函数中调用process_event
+     * 如需在转移函数中调用process_event,需要使用event_queue_add将对应的lambda函数添加至队列
+     */
+    void running()
+    {
+
+        //根据当前状态进行处理
+        switch(current_state())
+        {
+        case U8G2APP_INIT:
+        {
+
+        }
+        break;
+        case U8G2APP_IDLE_RUNNING:
+        {
+
+        }
+        break;
+        default:
+            break;
+        }
+
+        //处理事件队列中的事件
+        {
+            while(event_queue.size()>0)
+            {
+                std::function<void()> cb=event_queue.front();
+                event_queue.pop();
+                if(cb!=NULL)
+                {
+                    try
+                    {
+                        cb();
+                    }
+                    catch(...)
+                    {
+
+                    }
+                }
+            }
+        }
+
+    }
 private:
     using m = u8g2app;
 
 
     //状态机转移函数
 
-    //初始化状态函数
+    //初始化状态转移函数
     void  init(const init_event & event)
     {
         //注意:传入的event不可为空
@@ -100,7 +154,7 @@ private:
         msleep(400);
     }
 
-    //空闲运行状态函数
+    //空闲运行状态转移函数
     void idle_running(const idle_running_event & event)
     {
 
