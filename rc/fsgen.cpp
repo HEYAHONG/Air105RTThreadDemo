@@ -307,7 +307,7 @@ void fsgen(std::string filename,std::string root)
                                                 code << ",\n";
                                             }
                                             char buff[8192];
-                                            sprintf(buff,"{ROMFS_DIRENT_FILE, \"%s\", (rt_uint8_t *)&RC_Data[%u],%u}\n",dirnode->d_name,info.data_offset,info.data_size);
+                                            sprintf(buff,"{ROMFS_DIRENT_FILE, \"%s\", (rt_uint8_t *)&RC_Data[%u],%u}\n",dirnode->d_name,(unsigned)info.data_offset,(unsigned)info.data_size);
                                             code<<buff;
                                             dirnode_count++;
                                         }
@@ -334,7 +334,7 @@ void fsgen(std::string filename,std::string root)
                                     }
                                     std::string new_dirent_name=dirent_name+"_"+dirnode->d_name;
                                     char buff[8192];
-                                    sprintf(buff,"{ROMFS_DIRENT_DIR, \"%s\", (rt_uint8_t *)%s, sizeof(%s)/sizeof(%s[0])}",dirnode->d_name,new_dirent_name.c_str(),new_dirent_name.c_str(),new_dirent_name.c_str(),new_dirent_name.c_str());
+                                    sprintf(buff,"{ROMFS_DIRENT_DIR, \"%s\", (rt_uint8_t *)%s, sizeof(%s)/sizeof(%s[0])}",dirnode->d_name,new_dirent_name.c_str(),new_dirent_name.c_str(),new_dirent_name.c_str());
                                     code<<buff;
                                     dirnode_count++;
                                 }
