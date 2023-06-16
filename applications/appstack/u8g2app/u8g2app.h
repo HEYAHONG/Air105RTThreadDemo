@@ -49,6 +49,7 @@ private:
     //初始化状态函数
     void  init(const init_event & event)
     {
+        //注意:传入的event不可为空
         display=event;
 
         //显示启动中字样
@@ -95,9 +96,15 @@ private:
 
     }
 
+    //状态转移监视函数,返回true执行状态转移
+    bool  guard_init(const init_event & event) const
+    {
+        return event!=NULL;
+    }
+
     //状态转移表
     using transition_table = table<
-                             mem_fn_row< U8G2APP_INIT, init_event,U8G2APP_IDLE_RUNNING, &m::init>,
+                             mem_fn_row< U8G2APP_INIT, init_event,U8G2APP_IDLE_RUNNING, &m::init,&m::guard_init>,
                              mem_fn_row< U8G2APP_IDLE_RUNNING, idle_running_event,U8G2APP_IDLE_RUNNING, &m::idle_running>
                              >;
 
