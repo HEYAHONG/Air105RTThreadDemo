@@ -6,6 +6,13 @@ src = Glob('*.c')
 src += Glob('*.cpp')
 CPPPATH = [cwd]
 
+if GetDepend(['BSP_USING_U8G2_HWI2C']):
+    src += Glob('u8g2app/*.cpp')
+    src += Glob('u8g2app/*.c')
+    CPPPATH += [cwd+'/u8g2app/']
+    
+
+
 group = DefineGroup('ApplicationStack', src, depend = [''], CPPPATH = CPPPATH)
 
 list = os.listdir(cwd)

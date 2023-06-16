@@ -1,0 +1,13 @@
+from building import *
+
+cwd  = GetCurrentDir()
+
+src = []
+    
+CPPPATH = [
+cwd + '/fsmlite/src/'
+]
+
+group = DefineGroup('fsmlite', src, depend = [], CPPPATH = CPPPATH)
+
+Return('group')

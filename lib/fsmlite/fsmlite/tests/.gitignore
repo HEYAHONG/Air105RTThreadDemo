@@ -1,0 +1,11 @@
+*.log
+*.trs
+test_basic_row
+test_mem_fn_row
+test_notrans
+test_player
+test_recursive
+test_row
+test_scoped
+test_shared
+test_traits

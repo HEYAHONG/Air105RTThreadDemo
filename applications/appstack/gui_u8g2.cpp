@@ -20,6 +20,7 @@ void gui_u8g2_loop()
 #include "stdint.h"
 #include "stdlib.h"
 #include "stdio.h"
+#include "u8g2app.h"
 
 #ifdef BSP_USING_U8G2_DISPLAY_CONTROLER_SSD1306
 #define DISPLAY_CONTROLER SSD1306
@@ -58,46 +59,16 @@ static void gui_thread_entry(void *parameter)
         return;
     }
 
-    //显示启动中字样
-    display->setFont(u8g2_font_wqy12_t_gb2312);
-    display->clearBuffer();
-    display->setCursor(0,32);
-    display->print("启动中...");
-    display->sendBuffer();
-    rt_thread_mdelay(400);
 
-    display->setFont(u8g2_font_wqy13_t_gb2312);
-    display->clearBuffer();
-    display->setCursor(0,32);
-    display->print("启动中...");
-    display->sendBuffer();
-    rt_thread_mdelay(400);
-
-    display->setFont(u8g2_font_wqy14_t_gb2312);
-    display->clearBuffer();
-    display->setCursor(0,32);
-    display->print("启动中...");
-    display->sendBuffer();
-    rt_thread_mdelay(400);
-
-    display->setFont(u8g2_font_wqy15_t_gb2312);
-    display->clearBuffer();
-    display->setCursor(0,32);
-    display->print("启动中...");
-    display->sendBuffer();
-    rt_thread_mdelay(400);
-
-    display->setFont(u8g2_font_wqy16_t_gb2312);
-    display->clearBuffer();
-    display->setCursor(0,32);
-    display->print("启动中...");
-    display->sendBuffer();
-    rt_thread_mdelay(400);
-
-
+    u8g2app app;
+    app.process_event((u8g2app::init_event)display);
     while(true)
     {
         rt_thread_mdelay(25);
+        if(app.current_state()==u8g2app::U8G2APP_IDLE_RUNNING)
+        {
+            app.process_event((u8g2app::idle_running_event)rt_tick_get());
+        }
     }
 }
 
