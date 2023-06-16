@@ -6,6 +6,8 @@
 #include "string"
 #include "RC_cpp.h"
 #ifdef  RT_USING_DFS_ROMFS
+#include "dfs_file.h"
+#include "dfs_fs.h"
 #include "dfs_romfs.h"
 #endif // RT_USING_DFS_ROMFS
 #ifdef LIB_USING_JSONCPP
@@ -37,34 +39,43 @@ void App_Init()
 
     }
 
-
-
-#ifdef  RT_USING_DFS_ROMFS
-    extern const struct romfs_dirent romfs_root;
+#ifdef RT_USING_DFS_TMPFS
     {
-        if(dfs_mount(NULL,"/","rom",0,&romfs_root)!=0)
+        if(dfs_mount(NULL,"/","tmp",0,NULL)!=0)
         {
-            printf("mount romfs on / failed!\r\n");
+            printf("mount tmpfs on / failed!\r\n");
         }
         else
         {
-            printf("mount romfs on / success!\r\n");
+            printf("mount tmpfs on / success!\r\n");
+        }
+    }
+#endif // RT_USING_DFS_TMPFS
+
+
+#ifdef  RT_USING_DFS_ROMFS
+    {
+        extern const struct romfs_dirent romfs_root;
+        std::string mount_point="/";
+        {
+            //检查挂载点
+            struct stat s={0};
+            if(dfs_file_stat(mount_point.c_str(),&s)==0)
+            {
+                mount_point="/rom";
+                mkdir(mount_point.c_str(),777);
+            };
+        }
+        if(dfs_mount(NULL,mount_point.c_str(),"rom",0,&romfs_root)!=0)
+        {
+            printf("mount romfs on %s failed!\r\n",mount_point.c_str());
+        }
+        else
+        {
+            printf("mount romfs on %s success!\r\n",mount_point.c_str());
         }
     }
 #endif //RT_USING_DFS_ROMFS
-
-#ifdef RT_USING_DFS_TMPFS
-//    {
-//        if(dfs_mount(NULL,"/tmp","tmp",0,NULL)!=0)
-//        {
-//            printf("mount tmpfs on /tmp failed!\r\n");
-//        }
-//        else
-//        {
-//            printf("mount tmpfs on /tmp success!\r\n");
-//        }
-//    }
-#endif // RT_USING_DFS_TMPFS
 
 
     {
