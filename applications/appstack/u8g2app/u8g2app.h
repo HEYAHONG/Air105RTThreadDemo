@@ -52,45 +52,48 @@ private:
         //注意:传入的event不可为空
         display=event;
 
+        uint8_t w=display->getWidth();
+        uint8_t h=display->getHeight();
+
 
 
         //显示启动中字样
         display->setFont(u8g2_font_wqy12_t_gb2312);
         display->clearBuffer();
-        display->drawFrame(0,0,128,64);
-        display->setCursor(5,32);
+        display->drawFrame(0,0,w,h);
+        display->setCursor(5,h/2);
         display->print("启动中...");
         display->sendBuffer();
         msleep(400);
 
         display->setFont(u8g2_font_wqy13_t_gb2312);
         display->clearBuffer();
-        display->drawFrame(0,0,128,64);
-        display->setCursor(5,32);
+        display->drawFrame(0,0,w,h);
+        display->setCursor(5,h/2);
         display->print("启动中...");
         display->sendBuffer();
         msleep(400);
 
         display->setFont(u8g2_font_wqy14_t_gb2312);
         display->clearBuffer();
-        display->drawFrame(0,0,128,64);
-        display->setCursor(5,32);
+        display->drawFrame(0,0,w,h);
+        display->setCursor(5,h/2);
         display->print("启动中...");
         display->sendBuffer();
         msleep(400);
 
         display->setFont(u8g2_font_wqy15_t_gb2312);
         display->clearBuffer();
-        display->drawFrame(0,0,128,64);
-        display->setCursor(5,32);
+        display->drawFrame(0,0,w,h);
+        display->setCursor(5,h/2);
         display->print("启动中...");
         display->sendBuffer();
         msleep(400);
 
         display->setFont(u8g2_font_wqy16_t_gb2312);
         display->clearBuffer();
-        display->drawFrame(0,0,128,64);
-        display->setCursor(5,32);
+        display->drawFrame(0,0,w,h);
+        display->setCursor(5,h/2);
         display->print("启动中...");
         display->sendBuffer();
 
