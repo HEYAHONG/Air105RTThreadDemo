@@ -78,6 +78,28 @@ Air105的内存较大,非常适合用于驱动显示屏,其较大的flash空间�
   const unsigned char * RCGetHandle(const char * name);
   ```
 
+注意:在RT-Thread中,支持使用ROMFS挂载RC资源，代码说明如下:
+
+```c++
+//头文件
+#include <dfs_fs.h>
+#include "dfs_romfs.h"
+//挂载所需参数
+extern const struct romfs_dirent romfs_root；
+
+    
+...
+{
+    ...
+    //挂载romfs。注意:似乎DFSV1只支持挂载到/,挂载到其它地方无效。
+    dfs_mount(RT_NULL, "/", "rom", 0, &(romfs_root)
+    ...
+}
+...
+```
+
+
+
 # 测试截图
 
 ![Air105](doc/Air105.png)

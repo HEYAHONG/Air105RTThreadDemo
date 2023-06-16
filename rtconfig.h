@@ -84,8 +84,8 @@
 #define DFS_USING_WORKDIR
 #define DFS_FD_MAX 16
 #define RT_USING_DFS_V1
-#define DFS_FILESYSTEMS_MAX 8
-#define DFS_FILESYSTEM_TYPES_MAX 8
+#define DFS_FILESYSTEMS_MAX 4
+#define DFS_FILESYSTEM_TYPES_MAX 4
 #define RT_USING_DFS_ELMFAT
 
 /* elm-chan's FatFs, Generic FAT Filesystem Module */
@@ -103,7 +103,7 @@
 #define RT_DFS_ELM_REENTRANT
 #define RT_DFS_ELM_MUTEX_TIMEOUT 3000
 #define RT_USING_DFS_DEVFS
-#define RT_USING_DFS_RAMFS
+#define RT_USING_DFS_ROMFS
 #define RT_USING_DFS_TMPFS
 
 /* Device Drivers */

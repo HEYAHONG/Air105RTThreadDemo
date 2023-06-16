@@ -5,6 +5,9 @@
 #include "appstack.h"
 #include "string"
 #include "RC_cpp.h"
+#ifdef  RT_USING_DFS_ROMFS
+#include "dfs_romfs.h"
+#endif // RT_USING_DFS_ROMFS
 #ifdef LIB_USING_JSONCPP
 #include "json/value.h"
 #include "json/writer.h"
@@ -33,18 +36,37 @@ void App_Init()
     {
 
     }
-#ifdef RT_USING_DFS_TMPFS
+
+
+
+#ifdef  RT_USING_DFS_ROMFS
+    extern const struct romfs_dirent romfs_root;
     {
-        if(dfs_mount(NULL,"/","tmp",0,NULL)!=0)
+        if(dfs_mount(NULL,"/","rom",0,&romfs_root)!=0)
         {
-            printf("mount tmpfs on / failed!\r\n");
+            printf("mount romfs on / failed!\r\n");
         }
         else
         {
-            printf("mount tmpfs on / success!\r\n");
+            printf("mount romfs on / success!\r\n");
         }
     }
+#endif //RT_USING_DFS_ROMFS
+
+#ifdef RT_USING_DFS_TMPFS
+//    {
+//        if(dfs_mount(NULL,"/tmp","tmp",0,NULL)!=0)
+//        {
+//            printf("mount tmpfs on /tmp failed!\r\n");
+//        }
+//        else
+//        {
+//            printf("mount tmpfs on /tmp success!\r\n");
+//        }
+//    }
 #endif // RT_USING_DFS_TMPFS
+
+
     {
         //打印剩余内存
         rt_size_t total = 0, used = 0;
@@ -66,5 +88,5 @@ void App_Init()
 
 void App_Loop()
 {
-     gui_u8g2_loop();
+    gui_u8g2_loop();
 }
