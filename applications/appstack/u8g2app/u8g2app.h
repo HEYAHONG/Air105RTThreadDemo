@@ -21,6 +21,27 @@ void msleep(unsigned int msecs);
 }
 #endif // __cplusplus
 
+class u8g2app;
+
+/** \brief 开机动画,默认具有weak属性,需要修改时请重写此函数。
+ *
+ * \param app u8g2app& 应用
+ * \param display U8G2& 显示屏
+ *
+ */
+void u8g2app_booting_animation(u8g2app &app,U8G2 &display);
+
+
+/** \brief 屏幕空闲,通常用于显示数据后台处理,默认具有weak属性,需要修改时请重写此函数。
+ *
+ * \param app u8g2app& 应用
+ * \param display U8G2& 显示屏
+ * \param tick uint32_t 节拍（通常是时钟节拍）
+ *
+ */
+void u8g2app_idle_running(u8g2app &app,U8G2 &display,uint32_t tick);
+
+
 
 #ifdef __cplusplus
 #include <queue>
@@ -30,6 +51,8 @@ void msleep(unsigned int msecs);
 class u8g2app:public fsmlite::fsm<u8g2app>
 {
     friend class fsmlite::fsm<u8g2app>;
+    friend void u8g2app_booting_animation(u8g2app &app,U8G2 &display);
+    friend void u8g2app_idle_running(u8g2app &app,U8G2 &display,uint32_t tick);
     U8G2 * display;
     std::queue<std::function<void()>> event_queue;
     void event_queue_add(std::function<void()> _cb)
@@ -105,59 +128,20 @@ private:
     {
         //注意:传入的event不可为空
         display=event;
-
-        uint8_t w=display->getWidth();
-        uint8_t h=display->getHeight();
-
-
-
-        //显示启动中字样
-        display->setFont(u8g2_font_wqy12_t_gb2312);
-        display->clearBuffer();
-        display->drawFrame(0,0,w,h);
-        display->setCursor(5,h/2);
-        display->print("启动中...");
-        display->sendBuffer();
-        msleep(400);
-
-        display->setFont(u8g2_font_wqy13_t_gb2312);
-        display->clearBuffer();
-        display->drawFrame(0,0,w,h);
-        display->setCursor(5,h/2);
-        display->print("启动中...");
-        display->sendBuffer();
-        msleep(400);
-
-        display->setFont(u8g2_font_wqy14_t_gb2312);
-        display->clearBuffer();
-        display->drawFrame(0,0,w,h);
-        display->setCursor(5,h/2);
-        display->print("启动中...");
-        display->sendBuffer();
-        msleep(400);
-
-        display->setFont(u8g2_font_wqy15_t_gb2312);
-        display->clearBuffer();
-        display->drawFrame(0,0,w,h);
-        display->setCursor(5,h/2);
-        display->print("启动中...");
-        display->sendBuffer();
-        msleep(400);
-
-        display->setFont(u8g2_font_wqy16_t_gb2312);
-        display->clearBuffer();
-        display->drawFrame(0,0,w,h);
-        display->setCursor(5,h/2);
-        display->print("启动中...");
-        display->sendBuffer();
-
-        msleep(400);
+        //调用开机动画
+        event_queue_add([this]()
+        {
+            u8g2app_booting_animation(*this,*(this->display));
+        });
     }
 
     //空闲运行状态转移函数
     void idle_running(const idle_running_event & event)
     {
-
+        event_queue_add([this,event]()
+        {
+            u8g2app_idle_running(*this,*(this->display),(uint32_t)event);
+        });
     }
 
     //状态转移监视函数,返回true执行状态转移
