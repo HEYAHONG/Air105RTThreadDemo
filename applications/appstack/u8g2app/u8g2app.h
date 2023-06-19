@@ -107,7 +107,7 @@ bool u8g2app_idle_menu(u8g2app &app,U8G2 &display);
  * \param old_context std::shared_ptr<void *> 旧上下文
  *
  */
-void u8g2app_idle_change_animation(u8g2app &app,U8G2 &display,std::shared_ptr<void *> new_context,std::shared_ptr<void *> old_context);
+void u8g2app_idle_change_animation(u8g2app &app,U8G2 &display,std::shared_ptr<void> new_context,std::shared_ptr<void> old_context);
 
 
 class u8g2app:public fsmlite::fsm<u8g2app>
@@ -128,7 +128,7 @@ class u8g2app:public fsmlite::fsm<u8g2app>
     }
 
     //idle界面context
-    std::shared_ptr<void *> idle_context;
+    std::shared_ptr<void> idle_context;
 
 public:
     u8g2app():fsm(U8G2APP_INIT),display(NULL)
@@ -215,7 +215,7 @@ public:
 
     }
 
-    std::shared_ptr<void *> GetIdleContext()
+    std::shared_ptr<void> GetIdleContext()
     {
         return idle_context;
     }
@@ -230,7 +230,7 @@ public:
     //空闲运行事件
     using idle_running_event=uint32_t;
     //空闲界面改变
-    using idle_change_event=std::shared_ptr<void *>;
+    using idle_change_event=std::shared_ptr<void>;
 private:
     using m = u8g2app;
 

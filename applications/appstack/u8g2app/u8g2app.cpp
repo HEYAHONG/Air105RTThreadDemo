@@ -51,13 +51,13 @@ U8G2APP_WEAK void  u8g2app_booting_animation(u8g2app &app,U8G2 &display)
 U8G2APP_WEAK void u8g2app_idle_running(u8g2app &app,U8G2 &display,uint32_t tick)
 {
     //界面上下文
-    std::shared_ptr<void *> context=app.GetIdleContext();
+    std::shared_ptr<void> context=app.GetIdleContext();
 }
 
 U8G2APP_WEAK bool u8g2app_idle_backgroud(u8g2app &app,U8G2 &display)
 {
     //界面上下文
-    std::shared_ptr<void *> context=app.GetIdleContext();
+    std::shared_ptr<void> context=app.GetIdleContext();
 
     uint8_t w=display.getWidth();
     uint8_t h=display.getHeight();
@@ -68,7 +68,7 @@ U8G2APP_WEAK bool u8g2app_idle_backgroud(u8g2app &app,U8G2 &display)
 U8G2APP_WEAK bool u8g2app_idle_statusbar(u8g2app &app,U8G2 &display)
 {
     //界面上下文
-    std::shared_ptr<void *> context=app.GetIdleContext();
+    std::shared_ptr<void> context=app.GetIdleContext();
 
     uint8_t w=display.getWidth();
     uint8_t h=display.getHeight();
@@ -84,7 +84,7 @@ U8G2APP_WEAK bool u8g2app_idle_statusbar(u8g2app &app,U8G2 &display)
 U8G2APP_WEAK bool u8g2app_idle_main(u8g2app &app,U8G2 &display)
 {
     //界面上下文
-    std::shared_ptr<void *> context=app.GetIdleContext();
+    std::shared_ptr<void> context=app.GetIdleContext();
 
     uint8_t w=display.getWidth();
     uint8_t h=display.getHeight();
@@ -106,7 +106,7 @@ U8G2APP_WEAK bool u8g2app_idle_main(u8g2app &app,U8G2 &display)
 U8G2APP_WEAK bool u8g2app_idle_menu(u8g2app &app,U8G2 &display)
 {
     //界面上下文
-    std::shared_ptr<void *> context=app.GetIdleContext();
+    std::shared_ptr<void> context=app.GetIdleContext();
 
     uint8_t w=display.getWidth();
     uint8_t h=display.getHeight();
@@ -116,7 +116,7 @@ U8G2APP_WEAK bool u8g2app_idle_menu(u8g2app &app,U8G2 &display)
     return true;
 }
 
-U8G2APP_WEAK void u8g2app_idle_change_animation(u8g2app &app,U8G2 &display,std::shared_ptr<void *> new_context,std::shared_ptr<void *> old_context)
+U8G2APP_WEAK void u8g2app_idle_change_animation(u8g2app &app,U8G2 &display,std::shared_ptr<void> new_context,std::shared_ptr<void> old_context)
 {
 
 }
