@@ -24,5 +24,5 @@
 #include "bl_inc.h"
 #include "app_inc.h"
 #include "rtdbg.h"
-#define DBG LOG_E
+#define DBG(fmt, ...) LOG_E("HAL Driver( %s:%d)" fmt,__FUNCTION__,__LINE__,##__VA_ARGS__)
 #endif
