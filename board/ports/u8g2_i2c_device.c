@@ -7,5 +7,7 @@ int u8g2_i2c_device_init(void)
     {
         rt_kprintf("[u8g2] u8g2 kconfig error!(U8G2_I2C_DEVICE_NAME != I2C_BUS_NAME).");
     }
+
+    return RT_EOK;
 }
 INIT_ENV_EXPORT(u8g2_i2c_device_init);

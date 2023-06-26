@@ -227,6 +227,9 @@
 #define PKG_USING_U8G2_OFFICIAL_LATEST_VERSION
 #define PKG_U8G2_OFFICIAL_VER_NUM 0x99999
 
+/* PainterEngine: A cross-platform graphics application framework written in C language */
+
+
 /* tools packages */
 
 
@@ -274,7 +277,7 @@
 /* Arduino libraries */
 
 
-/* Projects and Demos */
+/* Projects */
 
 
 /* Sensors */
@@ -299,7 +302,6 @@
 
 /* Other */
 
-
 /* Signal IO */
 
 
@@ -319,6 +321,10 @@
 #define BSP_USING_U8G2_HWI2C
 #define BSP_USING_U8G2_DISPLAY_CONTROLER_SSD1306
 #define BSP_USING_U8G2_DISPLAY_RESOLUTION_128X64
+#define BSP_USING_LED
+#define BSP_USING_LED_LED0
+#define BSP_USING_LED_LED1
+#define BSP_USING_LED_LED2
 
 /* On-chip Peripheral Drivers */
 

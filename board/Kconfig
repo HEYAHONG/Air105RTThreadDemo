@@ -64,6 +64,23 @@ menu "Onboard Peripheral Drivers"
                     bool "128X64"
             endchoice
         endif
+    menuconfig BSP_USING_LED
+        bool "Enable Board LEDs "
+        select RT_USING_PIN
+        select BSP_USING_GPIO
+        select RT_USING_TIMER_SOFT
+        default y
+        if BSP_USING_LED
+           config BSP_USING_LED_LED0
+           bool "Enable Board LED0(PD14)"
+           default y
+           config BSP_USING_LED_LED1
+           bool "Enable Board LED1(PD15)"
+           default y
+           config BSP_USING_LED_LED2
+           bool "Enable Board LED2(PC3)"
+           default y
+        endif
 
 endmenu
 
