@@ -3,6 +3,7 @@
 #include "drv_gpio.h"
 #include "stdint.h"
 #include "stdbool.h"
+#include "led.h"
 
 #ifdef  BSP_USING_LED
 
@@ -110,5 +111,88 @@ static int led_init()
 }
 
 INIT_ENV_EXPORT(led_init);
+
+int led_set_table(led_index_t i,uint64_t table)
+{
+    switch(i)
+    {
+#ifdef BSP_USING_LED_LED0
+    case LED_INDEX_LED0:
+        led0_table=table;
+        return RT_EOK;
+#endif // BSP_USING_LED_LED0
+#ifdef BSP_USING_LED_LED1
+    case LED_INDEX_LED1:
+        led1_table=table;
+        return RT_EOK;
+#endif // BSP_USING_LED_LED1
+#ifdef BSP_USING_LED_LED2
+    case LED_INDEX_LED2:
+        led2_table=table;
+        return RT_EOK;
+#endif // BSP_USING_LED_LED2
+    default:
+        break;
+    }
+    return RT_EINVAL;
+}
+
+int led_set_onoff(led_index_t i,bool onoff)
+{
+    if(onoff)
+    {
+        led_set_table(i,0xFFFFFFFFFFFFFFFF);
+    }
+    else
+    {
+        led_set_table(i,0);
+    }
+
+    switch(i)
+    {
+#ifdef BSP_USING_LED_LED0
+    case LED_INDEX_LED0:
+        if(onoff)
+        {
+            rt_pin_write(LED0_PIN, PIN_HIGH);
+        }
+        else
+        {
+            rt_pin_write(LED0_PIN, PIN_LOW);
+        }
+        return RT_EOK;
+#endif // BSP_USING_LED_LED0
+
+#ifdef BSP_USING_LED_LED1
+    case LED_INDEX_LED1:
+        if(onoff)
+        {
+            rt_pin_write(LED1_PIN, PIN_HIGH);
+        }
+        else
+        {
+            rt_pin_write(LED1_PIN, PIN_LOW);
+        }
+        return RT_EOK;
+#endif // BSP_USING_LED_LED1
+
+#ifdef BSP_USING_LED_LED2
+    case LED_INDEX_LED2:
+        if(onoff)
+        {
+            rt_pin_write(LED2_PIN, PIN_HIGH);
+        }
+        else
+        {
+            rt_pin_write(LED2_PIN, PIN_LOW);
+        }
+        return RT_EOK;
+#endif // BSP_USING_LED_LED2
+    default:
+        break;
+    }
+
+    return RT_EINVAL;
+}
 
 #endif // BSP_USING_LED

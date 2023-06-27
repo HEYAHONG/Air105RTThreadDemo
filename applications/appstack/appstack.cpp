@@ -15,9 +15,14 @@
 #include "json/writer.h"
 #endif // LIB_USING_JSONCPP
 #include "gui_u8g2.h"
+#include "led.h"
 
 void App_Init()
 {
+    {
+        //设置LED
+        led_set_onoff(LED_INDEX_LED0,true);
+    }
     {
         printf("AppStack Start!\r\n");
     }

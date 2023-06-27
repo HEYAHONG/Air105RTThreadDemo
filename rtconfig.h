@@ -227,9 +227,6 @@
 #define PKG_USING_U8G2_OFFICIAL_LATEST_VERSION
 #define PKG_U8G2_OFFICIAL_VER_NUM 0x99999
 
-/* PainterEngine: A cross-platform graphics application framework written in C language */
-
-
 /* tools packages */
 
 
@@ -277,7 +274,7 @@
 /* Arduino libraries */
 
 
-/* Projects */
+/* Projects and Demos */
 
 
 /* Sensors */
@@ -301,6 +298,7 @@
 
 
 /* Other */
+
 
 /* Signal IO */
 
