@@ -148,6 +148,8 @@
 
 #define RT_USING_CPLUSPLUS
 #define RT_USING_CPLUSPLUS11
+#define RT_USING_CPP_WRAPPER
+#define RT_USING_CPP_EXCEPTIONS
 
 /* Network */
 
