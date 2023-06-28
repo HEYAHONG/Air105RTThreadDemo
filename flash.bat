@@ -17,5 +17,5 @@ goto :eof
 echo please set comport. e.g:%0 1 = use com1 for flash.
 goto :eof
 :no_rtthread_bin
-echo rthtread.bin don't exist,please execute scons .
+echo rthtread.bin doesn't exist,please execute scons .
 goto :eof
