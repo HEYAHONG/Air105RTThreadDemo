@@ -16,12 +16,41 @@
 #endif // LIB_USING_JSONCPP
 #include "gui_u8g2.h"
 #include "led.h"
+#include "key.h"
 
 void App_Init()
 {
     {
+#ifdef BSP_USING_LED
         //设置LED
         led_set_onoff(LED_INDEX_LED0,true);
+#endif // BSP_USING_LED
+    }
+    {
+        auto key_callback=[](key_index_t i,key_event_type_t type,void *usr)
+        {
+            switch(type)
+            {
+            case KEY_EVENT_TYPE_LONG_PRESS:
+            {
+                printf("key long press!\r\n");
+            }
+            break;
+            case KEY_EVENT_TYPE_CLICK:
+            {
+                printf("key click!\r\n");
+            }
+            break;
+            case KEY_EVENT_TYPE_DOUBLE_CLICK:
+            {
+                printf("key double click!\r\n");
+            }
+            break;
+            default:
+                break;
+            }
+        };
+        key_set_event_handler(key_callback,NULL);
     }
     {
         printf("AppStack Start!\r\n");
@@ -64,7 +93,7 @@ void App_Init()
         std::string mount_point="/";
         {
             //检查挂载点
-            struct stat s={0};
+            struct stat s= {0};
             if(dfs_file_stat(mount_point.c_str(),&s)==0)
             {
                 mount_point="/rom";

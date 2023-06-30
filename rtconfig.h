@@ -325,6 +325,7 @@
 #define BSP_USING_LED_LED0
 #define BSP_USING_LED_LED1
 #define BSP_USING_LED_LED2
+#define BSP_USING_KEY
 
 /* On-chip Peripheral Drivers */
 
