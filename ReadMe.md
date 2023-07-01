@@ -4,6 +4,12 @@
 
 ## 硬件
 
+本工程中使用一些板级外设可在Kconfig中打开或关闭。
+
+硬件板级驱动支持配置在Kconfig的→ Hardware Drivers Config → Onboard Peripheral Drivers中。
+
+![menuconfig_onboard_drivers](doc/menuconfig_onboard_drivers.PNG)
+
 ### 以太网
 
 Air105本身不支持以太网,但可以使用W5500作为全硬件以太网栈。默认情况下占用SPI2（4个引脚）:
@@ -21,7 +27,7 @@ Air105本身不支持以太网,但可以使用W5500作为全硬件以太网栈�
 
 Air105的内存较大,非常适合用于驱动显示屏,其较大的flash空间也可用于中文字体存储。
 
-本工程采用SSD1306驱动的128x64 OLED显示屏。
+本工程采用SSD1306驱动的128x64 OLED显示屏,采用[U8G2](https://github.com/olikraus/u8g2.git)作为显示库。
 
 硬件接口采用硬件I2C(可与其它设备共用I2C总线)。默认情况下占用I2C(两个引脚):
 
