@@ -19,6 +19,14 @@ int key_set_event_handler(key_event_callback_t cb,void* usr)
     return RT_EOK;
 }
 
+static void key_emit_event(key_index_t i,key_event_type_t type)
+{
+    if(handler.cb!=NULL)
+    {
+        handler.cb((key_index_t)i,type,handler.usr);
+    }
+}
+
 
 #ifdef BSP_USING_KEY
 
@@ -95,10 +103,7 @@ static void key_timer_timeout( void *para)
                 }
 
                 //处于按下状态
-                if(handler.cb!=NULL)
-                {
-                    handler.cb((key_index_t)i,KEY_EVENT_TYPE_ON_PRESS,handler.usr);
-                }
+                key_emit_event((key_index_t)i,KEY_EVENT_TYPE_ON_PRESS);
 
                 if(key[i].last_history_index != key[i].current_history_index)
                 {
@@ -109,10 +114,8 @@ static void key_timer_timeout( void *para)
                             //长按超过1000ms
                             key[i].last_history_index=key[i].current_history_index;
                             //长按
-                            if(handler.cb!=NULL)
-                            {
-                                handler.cb((key_index_t)i,KEY_EVENT_TYPE_LONG_PRESS,handler.usr);
-                            }
+                            key_emit_event((key_index_t)i,KEY_EVENT_TYPE_LONG_PRESS);
+
                         }
                     }
                 }
@@ -133,10 +136,8 @@ static void key_timer_timeout( void *para)
                 }
 
                 //处于释放状态
-                if(handler.cb!=NULL)
-                {
-                    handler.cb((key_index_t)i,KEY_EVENT_TYPE_ON_RELEASE,handler.usr);
-                }
+                key_emit_event((key_index_t)i,KEY_EVENT_TYPE_ON_RELEASE);
+
 
                 if(key[i].last_history_index != key[i].current_history_index)
                 {
@@ -155,20 +156,14 @@ static void key_timer_timeout( void *para)
                             if(current_history_index-last_history_index == 2)
                             {
                                 //单击
-                                if(handler.cb!=NULL)
-                                {
-                                    handler.cb((key_index_t)i,KEY_EVENT_TYPE_CLICK,handler.usr);
-                                }
+                                key_emit_event((key_index_t)i,KEY_EVENT_TYPE_CLICK);
 
                             }
 
                             if(current_history_index-last_history_index >= 4)
                             {
-                                //双击
-                                if(handler.cb!=NULL)
-                                {
-                                    handler.cb((key_index_t)i,KEY_EVENT_TYPE_DOUBLE_CLICK,handler.usr);
-                                }
+                                //双击(更多连击也算双击)
+                                key_emit_event((key_index_t)i,KEY_EVENT_TYPE_DOUBLE_CLICK);
                             }
 
 
