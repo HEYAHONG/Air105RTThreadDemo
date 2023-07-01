@@ -137,6 +137,28 @@ int led_set_table(led_index_t i,uint64_t table)
     return RT_EINVAL;
 }
 
+uint64_t led_get_table(led_index_t i)
+{
+    switch(i)
+    {
+#ifdef BSP_USING_LED_LED0
+    case LED_INDEX_LED0:
+        return led0_table;
+#endif // BSP_USING_LED_LED0
+#ifdef BSP_USING_LED_LED1
+    case LED_INDEX_LED1:
+        return led1_table;
+#endif // BSP_USING_LED_LED1
+#ifdef BSP_USING_LED_LED2
+    case LED_INDEX_LED2:
+        return led2_table;
+#endif // BSP_USING_LED_LED2
+    default:
+        break;
+    }
+    return 0;
+}
+
 int led_set_onoff(led_index_t i,bool onoff)
 {
     if(onoff)

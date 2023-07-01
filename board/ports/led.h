@@ -31,6 +31,15 @@ typedef enum
  */
 int led_set_table(led_index_t i,uint64_t table);
 
+/** \brief 获取LED亮灭表
+ *
+ * \param i led_index_t LED引索
+ * \return uint64_t LED亮灭表,LED不存在时返回0
+ *
+ */
+uint64_t led_get_table(led_index_t i);
+
+
 /** \brief 设置LED亮灭
  *
  * \param i led_index_t LED引索
