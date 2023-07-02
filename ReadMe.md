@@ -235,3 +235,11 @@ flash 9
 UART0 :1500000 8N1
 
 由于串口的波特率较高,有些工具可能不能正常打开(如putty 0.78)。
+
+# 其它工程
+
+其它工程通常用于参考。
+
+- https://gitee.com/openLuat/luatos-soc-air105.git
+- https://gitee.com/iosetting/air105_project.git
+- https://gitee.com/luyaoCode/air105_mh1903s.git
