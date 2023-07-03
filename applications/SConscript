@@ -1,5 +1,6 @@
 from building import *
 import os
+import sys
 
 
 cwd = GetCurrentDir()
@@ -14,7 +15,8 @@ def process_c_cpp_file(path):
             #跳过第一行(主要时BOM头影响,而且前几行通常是头文件，不是很重要)
             file.readline()
             content=file.read()
-            content=content.decode('utf8')
+            if sys.version_info < (3,0): 
+                content=content.decode('utf8')
             for ch in content:
                 if ord(ch) > 127:
                     #非英文字符
@@ -39,10 +41,16 @@ char_code_list.sort()
 #输出U8G2 font map文件
 if  GetDepend(['PKG_USING_U8G2_OFFICIAL']):
     with open(cwd+"/u8g2_font.map","w") as file_obj:
-        file_obj.write("32-128".encode("utf-8"))
-        for i in char_code_list:
-            file_obj.write(",\n".encode("utf-8"))
-            file_obj.write(("$%X"%(i)).encode("utf-8"))
+        if sys.version_info < (3,0):
+            file_obj.write("32-128".encode("utf-8"))
+            for i in char_code_list:
+                file_obj.write(",\n".encode("utf-8"))
+                file_obj.write(("$%X"%(i)).encode("utf-8"))
+        else:
+            file_obj.write("32-128")
+            for i in char_code_list:
+                file_obj.write(",\n")
+                file_obj.write(("$%X"%(i)))
 
 
 src = Glob('*.c')
