@@ -1,7 +1,50 @@
 from building import *
 import os
 
+
 cwd = GetCurrentDir()
+
+char_code_list=[]
+
+#处理c/c++文件
+def process_c_cpp_file(path):
+    if  GetDepend(['PKG_USING_U8G2_OFFICIAL']):
+        print("Scan %s for U8G2 font" %(path))
+        with open(path,"r") as file:
+            #跳过第一行(主要时BOM头影响,而且前几行通常是头文件，不是很重要)
+            file.readline()
+            content=file.read()
+            content=content.decode('utf8')
+            for ch in content:
+                if ord(ch) > 127:
+                    #非英文字符
+                    char_code_list.append(ord(ch))
+
+#遍历c/c++文件
+for root, dirs, files in os.walk(cwd):
+    for file in files:
+        path = os.path.join(root, file)
+        if path.endswith("h"):
+           process_c_cpp_file(path)
+        if path.endswith("c"):
+           process_c_cpp_file(path)
+        if path.endswith("cpp"):
+           process_c_cpp_file(path)
+
+
+#排序并删除char_code_list中重复元素
+char_code_list=list(set(char_code_list))
+char_code_list.sort()
+
+#输出U8G2 font map文件
+if  GetDepend(['PKG_USING_U8G2_OFFICIAL']):
+    with open(cwd+"/u8g2_font.map","w") as file_obj:
+        file_obj.write("32-128".encode("utf-8"))
+        for i in char_code_list:
+            file_obj.write(",\n".encode("utf-8"))
+            file_obj.write(("$%X"%(i)).encode("utf-8"))
+
+
 src = Glob('*.c')
 src += Glob('*.cpp')
 CPPPATH = [cwd]
