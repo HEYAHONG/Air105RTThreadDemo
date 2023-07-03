@@ -100,6 +100,10 @@ static void key_timer_timeout( void *para)
                     key[i].history[key[i].current_history_index].ispress = 1;
                     key[i].history[key[i].current_history_index].tick=rt_tick_get();
 
+                    //按下
+                    key_emit_event((key_index_t)i,KEY_EVENT_TYPE_PRESS);
+
+
                 }
 
                 //处于按下状态
@@ -133,6 +137,8 @@ static void key_timer_timeout( void *para)
                     key[i].history[key[i].current_history_index].ispress = 2;
                     key[i].history[key[i].current_history_index].tick=rt_tick_get();
 
+                    //松开
+                    key_emit_event((key_index_t)i,KEY_EVENT_TYPE_RELEASE);
                 }
 
                 //处于释放状态

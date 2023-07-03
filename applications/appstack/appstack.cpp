@@ -31,6 +31,16 @@ void App_Init()
         {
             switch(type)
             {
+            case KEY_EVENT_TYPE_PRESS:
+            {
+                printf("key press!\r\n");
+            }
+            break;
+            case KEY_EVENT_TYPE_RELEASE:
+            {
+                printf("key release!\r\n");
+            }
+            break;
             case KEY_EVENT_TYPE_LONG_PRESS:
             {
                 printf("key long press!\r\n");
