@@ -40,7 +40,7 @@ char_code_list.sort()
 
 #输出U8G2 font map文件
 if  GetDepend(['PKG_USING_U8G2_OFFICIAL']):
-    with open(cwd+"/u8g2_font.map","w") as file_obj:
+    with open(cwd+"/../u8g2_font.map","w") as file_obj:
         if sys.version_info < (3,0):
             file_obj.write("32-128".encode("utf-8"))
             for i in char_code_list:
@@ -51,6 +51,16 @@ if  GetDepend(['PKG_USING_U8G2_OFFICIAL']):
             for i in char_code_list:
                 file_obj.write(",\n")
                 file_obj.write(("$%X"%(i)))
+
+
+if GetDepend(['PKG_USING_U8G2_OFFICIAL_LATEST_VERSION']):
+    u8g2_path=cwd+"/../packages/u8g2-official-latest/"
+    if(os.path.exists(u8g2_path)):
+        if sys.platform.startswith("win32"):
+            os.chdir(cwd+"/..")
+            Execute("u8g2_genfont.bat")
+            os.chdir(cwd)    
+    
 
 
 src = Glob('*.c')

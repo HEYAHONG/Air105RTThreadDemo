@@ -4,41 +4,75 @@
 #define U8G2APP_WEAK __attribute__((weak))
 #endif // U8G2APP_WEAK
 
+#ifdef U8G2_HAS_FONT_USER
+#include "u8g2_font_user.h"
+#endif // U8G2_HAS_FONT_USER
+
+#ifdef U8G2_HAS_FONT_USER
+#define FONT_WQY12_T u8g2_font_wqy12_t_user
+#else
+#define FONT_WQY12_T u8g2_font_wqy12_t_gb2312
+#endif // U8G2_HAS_FONT_USER
+
+#ifdef U8G2_HAS_FONT_USER
+#define FONT_WQY13_T u8g2_font_wqy13_t_user
+#else
+#define FONT_WQY13_T u8g2_font_wqy13_t_gb2312
+#endif // U8G2_HAS_FONT_USER
+
+#ifdef U8G2_HAS_FONT_USER
+#define FONT_WQY14_T u8g2_font_wqy14_t_user
+#else
+#define FONT_WQY14_T u8g2_font_wqy14_t_gb2312
+#endif // U8G2_HAS_FONT_USER
+
+#ifdef U8G2_HAS_FONT_USER
+#define FONT_WQY15_T u8g2_font_wqy15_t_user
+#else
+#define FONT_WQY15_T u8g2_font_wqy15_t_gb2312
+#endif // U8G2_HAS_FONT_USER
+
+#ifdef U8G2_HAS_FONT_USER
+#define FONT_WQY16_T u8g2_font_wqy16_t_user
+#else
+#define FONT_WQY16_T u8g2_font_wqy16_t_gb2312
+#endif // U8G2_HAS_FONT_USER
+
 U8G2APP_WEAK void  u8g2app_booting_animation(u8g2app &app,U8G2 &display)
 {
     uint8_t w=display.getWidth();
     uint8_t h=display.getHeight();
 
     //显示启动中字样
-    display.setFont(u8g2_font_wqy12_t_gb2312);
+    display.setFont(FONT_WQY12_T);
     display.clearBuffer();
     display.drawFrame(0,0,w,h);
     display.setCursor(5,h/2);
     display.print("启动中...");
     display.sendBuffer();
     msleep(400);
-    display.setFont(u8g2_font_wqy13_t_gb2312);
+    display.setFont(FONT_WQY13_T);
     display.clearBuffer();
     display.drawFrame(0,0,w,h);
     display.setCursor(5,h/2);
     display.print("启动中...");
     display.sendBuffer();
     msleep(400);
-    display.setFont(u8g2_font_wqy14_t_gb2312);
+    display.setFont(FONT_WQY14_T);
     display.clearBuffer();
     display.drawFrame(0,0,w,h);
     display.setCursor(5,h/2);
     display.print("启动中...");
     display.sendBuffer();
     msleep(400);
-    display.setFont(u8g2_font_wqy15_t_gb2312);
+    display.setFont(FONT_WQY15_T);
     display.clearBuffer();
     display.drawFrame(0,0,w,h);
     display.setCursor(5,h/2);
     display.print("启动中...");
     display.sendBuffer();
     msleep(400);
-    display.setFont(u8g2_font_wqy16_t_gb2312);
+    display.setFont(FONT_WQY16_T);
     display.clearBuffer();
     display.drawFrame(0,0,w,h);
     display.setCursor(5,h/2);

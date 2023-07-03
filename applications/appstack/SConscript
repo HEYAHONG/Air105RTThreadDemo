@@ -10,10 +10,12 @@ if GetDepend(['BSP_USING_U8G2_HWI2C']):
     src += Glob('u8g2app/*.cpp')
     src += Glob('u8g2app/*.c')
     CPPPATH += [cwd+'/u8g2app/']
-    
 
+cxxflags=""
+if os.path.exists(cwd+"/u8g2app/u8g2_font_user.h"):
+    cxxflags+=" -DU8G2_HAS_FONT_USER "
 
-group = DefineGroup('ApplicationStack', src, depend = [''], CPPPATH = CPPPATH)
+group = DefineGroup('ApplicationStack', src, depend = [''], CPPPATH = CPPPATH,CXXFLAGS=cxxflags)
 
 list = os.listdir(cwd)
 for item in list:
