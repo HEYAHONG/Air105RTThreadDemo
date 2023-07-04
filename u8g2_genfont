@@ -1,0 +1,93 @@
+#!/bin/bash
+
+#检查工具是否存在,$1为待检查的工具名。
+function CheckTool
+{
+	[  -n "$1"  ] ||
+	{
+		echo -e  "\033[41;37mCheckTool 参数错误!!\033[40;37m";
+		return 255;
+	};
+	ToolPath=`which $1`;
+	[ -e "$ToolPath" ] ||
+	{
+		 echo -e "\033[41;37m$1 不存在，请先安装此工具\033[40;37m";
+		 return 255;
+	};
+	return 0;
+}
+
+
+CheckTool make
+[ $? -eq 0 ] || exit;
+CheckTool gcc
+[ $? -eq 0 ] || exit;
+
+#设置ROOT_PATH变量
+self_path=""
+# shellcheck disable=SC2128  # ignore array expansion warning
+if [ -n "${BASH_SOURCE-}" ]
+then
+self_path="${BASH_SOURCE}"
+elif [ -n "${ZSH_VERSION-}" ]
+then
+self_path="${(%):-%x}"
+else
+echo -e "\033[41;37m不能获取工作目录\033[40;37m";
+return 1
+fi
+
+# shellcheck disable=SC2169,SC2169,SC2039  # unreachable with 'dash'
+if [[ "$OSTYPE" == "darwin"* ]]; then
+# convert possibly relative path to absolute
+script_dir="$(realpath_int "${self_path}")"
+# resolve any ../ references to make the path shorter
+script_dir="$(cd "${script_dir}" || exit 1; pwd)"
+else
+# convert to full path and get the directory name of that
+script_name="$(readlink -f "${self_path}")"
+script_dir="$(dirname "${script_name}")"
+fi
+
+export ROOT_PATH="${script_dir}";
+export BDFPATH=${ROOT_PATH}/packages/u8g2-official-latest/tools/font/bdf/
+export BDFCONVPATH=${ROOT_PATH}/packages/u8g2-official-latest/tools/font/bdfconv/
+
+if [ -d ${BDFCONVPATH} ]
+then
+	make -C ${BDFCONVPATH} bdfconv
+else
+	exit
+fi
+
+
+if [ -x ${BDFCONVPATH}/bdfconv ]
+then
+	echo bdfconv is ready!
+else
+	exit
+fi
+if [ -f ${ROOT_PATH}/u8g2_font.map ]
+then
+        echo font map is ${ROOT_PATH}/u8g2_font.map!
+else
+        exit
+fi
+
+
+set -e
+cd ${ROOT_PATH}
+
+${BDFCONVPATH}/bdfconv ${BDFPATH}/wenquanyi_9pt.bdf -b 0 -f 1 -M  ${ROOT_PATH}/u8g2_font.map -n u8g2_font_wqy12_t_user -o _u8g2_font_wqy12_t_user.h~
+${BDFCONVPATH}/bdfconv ${BDFPATH}/wenquanyi_10pt.bdf -b 0 -f 1 -M ${ROOT_PATH}/u8g2_font.map -n u8g2_font_wqy13_t_user -o _u8g2_font_wqy13_t_user.h~
+${BDFCONVPATH}/bdfconv ${BDFPATH}/wenquanyi_13px.bdf -b 0 -f 1 -M ${ROOT_PATH}/u8g2_font.map -n u8g2_font_wqy14_t_user -o _u8g2_font_wqy14_t_user.h~
+${BDFCONVPATH}/bdfconv ${BDFPATH}/wenquanyi_11pt.bdf -b 0 -f 1 -M ${ROOT_PATH}/u8g2_font.map -n u8g2_font_wqy15_t_user -o _u8g2_font_wqy15_t_user.h~
+${BDFCONVPATH}/bdfconv ${BDFPATH}/wenquanyi_12pt.bdf -b 0 -f 1 -M ${ROOT_PATH}/u8g2_font.map -n u8g2_font_wqy16_t_user -o _u8g2_font_wqy16_t_user.h~
+
+cat _u8g2_font_wqy12_t_user.h~ > ${ROOT_PATH}/applications/appstack/u8g2app/u8g2_font_user.h
+cat _u8g2_font_wqy13_t_user.h~ >> ${ROOT_PATH}/applications/appstack/u8g2app/u8g2_font_user.h
+cat _u8g2_font_wqy14_t_user.h~ >> ${ROOT_PATH}/applications/appstack/u8g2app/u8g2_font_user.h
+cat _u8g2_font_wqy15_t_user.h~ >> ${ROOT_PATH}/applications/appstack/u8g2app/u8g2_font_user.h
+cat _u8g2_font_wqy16_t_user.h~ >> ${ROOT_PATH}/applications/appstack/u8g2app/u8g2_font_user.h
+rm -rf _u8g2*~
+echo u8g2_genfont ok!

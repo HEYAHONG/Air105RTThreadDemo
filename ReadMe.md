@@ -187,12 +187,13 @@ extern const struct romfs_dirent romfs_root；
 - git
 - cmake
 - ninja-build
+- make
 
 可使用以下命令安装:
 
 ```bash
 sudo apt-get update
-sudo apt-get install -yy build-essential gcc-arm-none-eabi python3  python3-requests scons wget git cmake ninja-build
+sudo apt-get install -yy build-essential gcc-arm-none-eabi python3  python3-requests scons wget git cmake ninja-build make
 ```
 
 

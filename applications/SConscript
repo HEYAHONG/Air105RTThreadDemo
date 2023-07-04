@@ -59,7 +59,12 @@ if GetDepend(['PKG_USING_U8G2_OFFICIAL_LATEST_VERSION']):
         if sys.platform.startswith("win32"):
             os.chdir(cwd+"/..")
             Execute("u8g2_genfont.bat")
-            os.chdir(cwd)    
+            os.chdir(cwd)
+        else:
+            os.chdir(cwd+"/..")
+            Execute("./u8g2_genfont")
+            os.chdir(cwd)
+    
     
 
 
