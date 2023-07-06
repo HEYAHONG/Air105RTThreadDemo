@@ -5,6 +5,7 @@
 #include "stdbool.h"
 #include <board.h>
 #include "drv_gpio.h"
+#include "heventloop.h"
 
 static struct
 {
@@ -19,11 +20,52 @@ int key_set_event_handler(key_event_callback_t cb,void* usr)
     return RT_EOK;
 }
 
-static void key_emit_event(key_index_t i,key_event_type_t type)
+typedef struct
 {
+    key_index_t i;
+    key_event_type_t type;
+    void *usr;
+} key_event_t;
+static heventloop_t *loop=NULL;
+static void process_event(void * evt)
+{
+    if(evt==NULL)
+    {
+        return;
+    }
+    key_event_t *event=(key_event_t *)evt;
     if(handler.cb!=NULL)
     {
-        handler.cb((key_index_t)i,type,handler.usr);
+        handler.cb((key_index_t)event->i,event->type,event->usr);
+    }
+}
+
+static key_event_t *new_event(key_index_t i,key_event_type_t type,void *usr)
+{
+    key_event_t *evt=(key_event_t *)rt_malloc(sizeof(key_event_t));
+    if(evt!=NULL)
+    {
+        evt->i=i;
+        evt->type=type;
+        evt->usr=usr;
+        return evt;
+    }
+    return NULL;
+}
+
+static void free_event(void *evt)
+{
+    if(evt!=NULL)
+    {
+        rt_free(evt);
+    }
+}
+
+static void key_emit_event(key_index_t i,key_event_type_t type)
+{
+    if(loop!=NULL)
+    {
+        heventloop_add_event(loop,new_event(i,type,handler.usr),process_event,free_event);
     }
 }
 
@@ -185,6 +227,51 @@ static void key_timer_timeout( void *para)
     }
 }
 
+
+static void *mem_alloc(size_t nBytes,void *usr)
+{
+    return rt_malloc(nBytes);
+}
+
+static void mem_free(void *ptr,void *usr)
+{
+    rt_free(ptr);
+}
+
+static void mutex_lock(void *lck)
+{
+    if(lck!=NULL)
+    {
+        rt_mutex_take((rt_mutex_t)lck,RT_WAITING_FOREVER);
+    }
+}
+
+static void mutex_unlock(void *lck)
+{
+    if(lck!=NULL)
+    {
+        rt_mutex_release((rt_mutex_t)lck);
+    }
+}
+
+//Key事件处理线程
+static void key_thread_entry(void *para)
+{
+    static rt_mutex_t mutex=NULL;
+    mutex=rt_mutex_create("key",RT_IPC_FLAG_PRIO);
+    if(mutex==NULL)
+    {
+        return;
+    }
+    loop=heventloop_new_with_memmang_and_lock(mutex,mem_alloc,mem_free,mutex_lock,mutex_unlock);
+    while(true)
+    {
+        //处理事件
+        heventloop_process_event(loop);
+        rt_thread_delay(50);
+    }
+}
+
 static int key_init()
 {
 
@@ -204,6 +291,16 @@ static int key_init()
     if(timer!=NULL)
     {
         rt_timer_start(timer);
+    }
+
+    static rt_thread_t event_process=NULL;
+    /*
+        事件处理线程,比Timer优先级低,允许较长时间处理某个事件
+    */
+    event_process=rt_thread_create("key_evt",key_thread_entry,&event_process,RT_TIMER_THREAD_STACK_SIZE,RT_TIMER_THREAD_PRIO+1,0);
+    if(event_process!=NULL)
+    {
+        rt_thread_startup(event_process);
     }
 
     return RT_EOK;
