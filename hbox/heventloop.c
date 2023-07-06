@@ -53,6 +53,7 @@ heventloop_t * heventloop_new_with_memmang_and_lock(void *usr,void *(*mem_alloc)
     loop->mem_free=mem_free;
     loop->mutex_lock=mutex_lock;
     loop->mutex_unlock=mutex_unlock;
+    loop->event_start=NULL;
 
     return loop;
 }
