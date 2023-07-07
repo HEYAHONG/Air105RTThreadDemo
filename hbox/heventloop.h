@@ -23,12 +23,16 @@ heventloop_t * heventloop_new_with_memmang(void *usr,void *(*mem_alloc)(size_t,v
 heventloop_t * heventloop_new_with_lock(void *usr,void (*mutex_lock)(void *),void (*mutex_unlock)(void *));
 heventloop_t * heventloop_new(void *usr);
 
+void * heventloop_get_usr_ptr(heventloop_t *loop);
+
 void heventloop_free(heventloop_t *loop);
 
 bool heventloop_has_events(heventloop_t *loop);
 void heventloop_process_event(heventloop_t *loop);
 bool heventloop_add_event(heventloop_t *loop,void *event_usr,void(*event_process)(void *),void(*event_onfree)(void *));
-
+uint32_t heventloop_get_events_number(heventloop_t *loop);
+uint32_t heventloop_get_max_events_number(heventloop_t *loop);
+void  heventloop_set_max_events_number(heventloop_t *loop,uint32_t max_event_number);
 
 
 

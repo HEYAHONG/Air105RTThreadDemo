@@ -27,6 +27,10 @@ struct heventloop
     void (*mutex_unlock)(void *);
     //事件单向链表起始指针
     heventloop_event_t *event_start;
+    //事件数量
+    uint32_t event_number;
+    //最大事件数量,0表示无限制
+    uint32_t max_event_number;
 };
 
 heventloop_t * heventloop_new_with_memmang_and_lock(void *usr,void *(*mem_alloc)(size_t,void *),void (*mem_free)(void *,void *),void (*mutex_lock)(void *),void (*mutex_unlock)(void *))
@@ -54,6 +58,8 @@ heventloop_t * heventloop_new_with_memmang_and_lock(void *usr,void *(*mem_alloc)
     loop->mutex_lock=mutex_lock;
     loop->mutex_unlock=mutex_unlock;
     loop->event_start=NULL;
+    loop->event_number=0;
+    loop->max_event_number=0;
 
     return loop;
 }
@@ -80,6 +86,15 @@ heventloop_t * heventloop_new(void *usr)
 {
     return heventloop_new_with_memmang_and_lock(usr,default_malloc,default_free,NULL,NULL);
 
+}
+
+void * heventloop_get_usr_ptr(heventloop_t *loop)
+{
+    if(loop==NULL)
+    {
+        return NULL;
+    }
+    return loop->usr;
 }
 
 void heventloop_free(heventloop_t *loop)
@@ -134,6 +149,11 @@ void heventloop_process_event(heventloop_t *loop)
         heventloop_event_t *current=loop->event_start;
         loop->event_start=current->next;
 
+        if(loop->event_number!=0)
+        {
+            loop->event_number--;
+        }
+
         //释放锁
         if(loop->mutex_unlock!=NULL)
         {
@@ -168,6 +188,14 @@ bool heventloop_add_event(heventloop_t *loop,void *event_usr,void(*event_process
     if(loop==NULL)
     {
         return false;
+    }
+
+    if(loop->max_event_number!=0)
+    {
+        if(loop->max_event_number < loop->event_number)
+        {
+            return false;
+        }
     }
 
     heventloop_event_t *event=NULL;
@@ -208,10 +236,14 @@ bool heventloop_add_event(heventloop_t *loop,void *event_usr,void(*event_process
         loop_event=loop_event->next;
     }
 
+    loop->event_number++;
+
     if(loop_event==NULL)
     {
         loop->event_start=event;
+        loop->event_number=1;
     }
+
 
     //释放锁
     if(loop->mutex_unlock!=NULL)
@@ -220,4 +252,33 @@ bool heventloop_add_event(heventloop_t *loop,void *event_usr,void(*event_process
     }
 
     return true;
+}
+
+uint32_t heventloop_get_events_number(heventloop_t *loop)
+{
+    if(loop==NULL)
+    {
+        return 0;
+    }
+
+    return loop->event_number;
+}
+
+uint32_t heventloop_get_max_events_number(heventloop_t *loop)
+{
+    if(loop==NULL)
+    {
+        return 0;
+    }
+
+    return loop->max_event_number;
+}
+
+void  heventloop_set_max_events_number(heventloop_t *loop,uint32_t max_event_number)
+{
+    if(loop==NULL)
+    {
+        return;
+    }
+    loop->max_event_number=max_event_number;
 }

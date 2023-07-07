@@ -264,6 +264,8 @@ static void key_thread_entry(void *para)
         return;
     }
     loop=heventloop_new_with_memmang_and_lock(mutex,mem_alloc,mem_free,mutex_lock,mutex_unlock);
+    //最大1000个事件
+    heventloop_set_max_events_number(loop,1000);
     while(true)
     {
         //处理事件
