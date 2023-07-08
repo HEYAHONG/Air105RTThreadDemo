@@ -153,7 +153,7 @@ static void key_timer_timeout( void *para)
                 }
 
                 //处于按下状态
-                key_emit_event((key_index_t)i,KEY_EVENT_TYPE_ON_PRESS);
+                //key_emit_event((key_index_t)i,KEY_EVENT_TYPE_ON_PRESS);
 
                 if(key[i].last_history_index != key[i].current_history_index)
                 {
@@ -188,7 +188,7 @@ static void key_timer_timeout( void *para)
                 }
 
                 //处于释放状态
-                key_emit_event((key_index_t)i,KEY_EVENT_TYPE_ON_RELEASE);
+                //key_emit_event((key_index_t)i,KEY_EVENT_TYPE_ON_RELEASE);
 
 
                 if(key[i].last_history_index != key[i].current_history_index)

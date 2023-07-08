@@ -12,8 +12,8 @@ extern "C"
 
 typedef enum
 {
-    KEY_EVENT_TYPE_ON_PRESS,/**< 按键处于按压状态 */
-    KEY_EVENT_TYPE_ON_RELEASE,/**< 按键处于松开状态 */
+//    KEY_EVENT_TYPE_ON_PRESS,/**< 按键处于按压状态 */
+//    KEY_EVENT_TYPE_ON_RELEASE,/**< 按键处于松开状态 */
     KEY_EVENT_TYPE_PRESS,/**< 按键按下 */
     KEY_EVENT_TYPE_RELEASE, /**< 按键松开 */
     KEY_EVENT_TYPE_CLICK,/**< 按键单击 */
