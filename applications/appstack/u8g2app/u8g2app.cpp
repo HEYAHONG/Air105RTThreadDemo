@@ -106,7 +106,7 @@ U8G2APP_WEAK bool u8g2app_idle_statusbar(u8g2app &app,U8G2 &display)
 
     uint8_t w=display.getWidth();
     uint8_t h=display.getHeight();
-    display.setFont(u8g2_font_wqy12_t_gb2312);
+    display.setFont(FONT_WQY12_T);
     uint8_t font_width=12;
     uint8_t max_char=w/font_width;
     display.drawFrame(0,0,w,h/5<12?12:h/5+3);
@@ -124,7 +124,7 @@ U8G2APP_WEAK bool u8g2app_idle_main(u8g2app &app,U8G2 &display)
     uint8_t h=display.getHeight();
     uint8_t start_x=0;
     uint8_t start_y=h/5<12?12:h/5+3;
-    display.setFont(u8g2_font_wqy12_t_gb2312);
+    display.setFont(FONT_WQY12_T);
     uint8_t font_width=12;
     uint8_t max_char=w/font_width;
 
