@@ -65,7 +65,11 @@ static void key_emit_event(key_index_t i,key_event_type_t type)
 {
     if(loop!=NULL)
     {
-        heventloop_add_event(loop,new_event(i,type,handler.usr),process_event,free_event);
+        key_event_t * evt=new_event(i,type,handler.usr);
+        if(!heventloop_add_event(loop,(void *)evt,process_event,free_event))
+        {
+            free_event((void *)evt);
+        };
     }
 }
 
