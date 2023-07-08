@@ -1,11 +1,12 @@
 #ifndef HEVENTLOOP_H_INCLUDED
 #define HEVENTLOOP_H_INCLUDED
-#ifdef __cplusplus
+
 
 /*
 本文件用于辅助处理事件循环,封装一些常用功能(如使用单向链表添加事件)
 */
 
+#ifdef __cplusplus
 extern "C"
 {
 #endif // __cplusplus
