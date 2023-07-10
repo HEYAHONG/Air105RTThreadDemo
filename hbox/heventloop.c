@@ -254,6 +254,83 @@ bool heventloop_add_event(heventloop_t *loop,void *event_usr,void(*event_process
     return true;
 }
 
+typedef struct
+{
+    void * event_usr;
+    void(*event_process)(void *,heventloop_t *);
+    void(*event_onfree)(void *,heventloop_t *);
+    heventloop_t *loop;
+
+} heventloop_event_ex1_t;
+
+static void heventloop_event_ex1_process(void * usr)
+{
+    if(usr==NULL)
+    {
+        return;
+    }
+    heventloop_event_ex1_t *event_ex1=(heventloop_event_ex1_t *)usr;
+    if(event_ex1->event_process!=NULL)
+    {
+        event_ex1->event_process(event_ex1->event_usr,event_ex1->loop);
+    }
+}
+
+static void heventloop_event_ex1_onfree(void * usr)
+{
+    if(usr==NULL)
+    {
+        return;
+    }
+    heventloop_event_ex1_t *event_ex1=(heventloop_event_ex1_t *)usr;
+    if(event_ex1->event_onfree!=NULL)
+    {
+        event_ex1->event_onfree(event_ex1->event_usr,event_ex1->loop);
+    }
+}
+
+bool heventloop_add_event_ex1(heventloop_t *loop,void *event_usr,void(*event_process)(void *,heventloop_t *),void(*event_onfree)(void *,heventloop_t *))
+{
+    if(loop==NULL)
+    {
+        return false;
+    }
+
+    heventloop_event_ex1_t *event_ex1=NULL;
+    if(loop->mem_alloc!=NULL)
+    {
+        event_ex1=(heventloop_event_ex1_t *)loop->mem_alloc(sizeof(heventloop_event_ex1_t),loop->usr);
+    }
+    else
+    {
+        event_ex1=(heventloop_event_ex1_t *)malloc(sizeof(heventloop_event_ex1_t));
+    }
+
+    if(event_ex1==NULL)
+    {
+        return false;
+    }
+
+    event_ex1->event_usr=event_usr;
+    event_ex1->event_process=event_process;
+    event_ex1->event_onfree=event_onfree;
+    event_ex1->loop=loop;
+
+    if(!heventloop_add_event(loop,event_usr,heventloop_event_ex1_process,heventloop_event_ex1_onfree))
+    {
+        if(loop->mem_free!=NULL)
+        {
+            loop->mem_free(event_ex1,loop->usr);
+        }
+        else
+        {
+            free(event_ex1);
+        }
+    }
+
+    return true;
+}
+
 uint32_t heventloop_get_events_number(heventloop_t *loop)
 {
     if(loop==NULL)
