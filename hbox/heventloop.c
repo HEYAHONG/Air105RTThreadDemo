@@ -326,6 +326,8 @@ bool heventloop_add_event_ex1(heventloop_t *loop,void *event_usr,void(*event_pro
         {
             free(event_ex1);
         }
+
+        return false;
     }
 
     return true;
