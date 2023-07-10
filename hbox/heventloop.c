@@ -287,6 +287,16 @@ static void heventloop_event_ex1_onfree(void * usr)
     {
         event_ex1->event_onfree(event_ex1->event_usr,event_ex1->loop);
     }
+
+    if(event_ex1->loop->mem_free!=NULL)
+    {
+        event_ex1->loop->mem_free(event_ex1,event_ex1->loop->usr);
+    }
+    else
+    {
+        free(event_ex1);
+    }
+
 }
 
 bool heventloop_add_event_ex1(heventloop_t *loop,void *event_usr,void(*event_process)(void *,heventloop_t *),void(*event_onfree)(void *,heventloop_t *))
