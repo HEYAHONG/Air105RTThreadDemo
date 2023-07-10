@@ -326,7 +326,7 @@ bool heventloop_add_event_ex1(heventloop_t *loop,void *event_usr,void(*event_pro
     event_ex1->event_onfree=event_onfree;
     event_ex1->loop=loop;
 
-    if(!heventloop_add_event(loop,event_usr,heventloop_event_ex1_process,heventloop_event_ex1_onfree))
+    if(!heventloop_add_event(loop,event_ex1,heventloop_event_ex1_process,heventloop_event_ex1_onfree))
     {
         if(loop->mem_free!=NULL)
         {
