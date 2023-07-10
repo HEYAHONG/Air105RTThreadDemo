@@ -96,7 +96,7 @@ void heventloop_process_event(heventloop_t *loop);
  * \param  loop heventloop_t* heventloop_t指针
  * \param  event_usr void* 事件中的用户参数
  * \param  event_process 事件处理,第一个参数为用户参数。
- * \param  event_onfree  事件释放回调。通常用于释放用户参数。
+ * \param  event_onfree  事件释放回调,第一个参数为用户参数。。通常用于释放用户参数。
  * \return bool 是否添加成功,当内存不足或者到达最大事件数时将添加失败。
  *
  */
@@ -107,8 +107,8 @@ bool heventloop_add_event(heventloop_t *loop,void *event_usr,void(*event_process
  *
  * \param  loop heventloop_t* heventloop_t指针
  * \param  event_usr void* 事件中的用户参数
- * \param  event_process 事件处理,第一个参数为用户参数。
- * \param  event_onfree  事件释放回调。通常用于释放用户参数。
+ * \param  event_process 事件处理,第一个参数为用户参数,第二个参数为heventloop_t指针。
+ * \param  event_onfree  事件释放回调,第一个参数为用户参数,第二个参数为heventloop_t指针。通常用于释放用户参数。
  * \return bool 是否添加成功,当内存不足或者到达最大事件数时将添加失败。
  *
  */
