@@ -2,7 +2,7 @@
 #define HEVENTSLOTS_H_INCLUDED
 
 /*
-此文件用于实现一些事件调用常用的回调函数功能,通常配合heventslots.h中的函数使用
+此文件用于实现一些事件调用常用的回调函数功能,通常配合heventloop.h中的函数使用
 */
 
 #ifdef __cplusplus
