@@ -6,17 +6,40 @@
 #include <board.h>
 #include "drv_gpio.h"
 #include "heventloop.h"
+#include "heventslots.h"
 
-static struct
+typedef struct
 {
     key_event_callback_t cb;
     void *usr;
-} handler= {NULL,NULL};
-
+} key_handler_t;
+heventslots_t *slots=NULL;
+static void key_slots_slot(void *signal,void *usr);
+static key_handler_t *key_slots_new(key_event_callback_t cb,void *usr)
+{
+    key_handler_t *handle=(key_handler_t*)rt_malloc(sizeof(key_handler_t));
+    handle->cb=cb;
+    handle->usr=usr;
+    return handle;
+}
+static void key_slots_free(void *handle)
+{
+    if(handle!=NULL)
+    {
+        rt_free(handle);
+    }
+}
 int key_set_event_handler(key_event_callback_t cb,void* usr)
 {
-    handler.usr=usr;
-    handler.cb=cb;
+    if(slots!=NULL)
+    {
+        key_handler_t *handle=key_slots_new(cb,usr);
+        if(heventslots_register_slot(slots,handle,key_slots_slot,key_slots_free)==0)
+        {
+            key_slots_free(handle);
+            return RT_EINVAL;
+        }
+    }
     return RT_EOK;
 }
 
@@ -26,6 +49,15 @@ typedef struct
     key_event_type_t type;
     void *usr;
 } key_event_t;
+static void key_slots_slot(void *signal,void *usr)
+{
+    if(signal!=NULL && usr !=NULL)
+    {
+        key_handler_t *handle=(key_handler_t *)usr;
+        key_event_t  *event=(key_event_t *)signal;
+        handle->cb(event->i,event->type,handle->usr);
+    }
+}
 static heventloop_t *loop=NULL;
 static void process_event(void * evt)
 {
@@ -33,10 +65,9 @@ static void process_event(void * evt)
     {
         return;
     }
-    key_event_t *event=(key_event_t *)evt;
-    if(handler.cb!=NULL)
+    if(slots!=NULL)
     {
-        handler.cb((key_index_t)event->i,event->type,event->usr);
+        heventslots_emit_signal(slots,evt);
     }
 }
 
@@ -65,7 +96,7 @@ static void key_emit_event(key_index_t i,key_event_type_t type)
 {
     if(loop!=NULL)
     {
-        key_event_t * evt=new_event(i,type,handler.usr);
+        key_event_t * evt=new_event(i,type,NULL);
         if(!heventloop_add_event(loop,(void *)evt,process_event,free_event))
         {
             free_event((void *)evt);
@@ -261,13 +292,23 @@ static void mutex_unlock(void *lck)
 //Key事件处理线程
 static void key_thread_entry(void *para)
 {
-    static rt_mutex_t mutex=NULL;
+    static rt_mutex_t mutex=NULL,mutex_cb=NULL;
     mutex=rt_mutex_create("key",RT_IPC_FLAG_PRIO);
-    if(mutex==NULL)
+    mutex_cb=rt_mutex_create("key_cb",RT_IPC_FLAG_PRIO);
+    if(mutex==NULL || mutex_cb ==NULL)
     {
+        if(mutex)
+        {
+            rt_mutex_delete(mutex);
+        }
+        if(mutex_cb)
+        {
+            rt_mutex_delete(mutex_cb);
+        }
         return;
     }
     loop=heventloop_new_with_memmang_and_lock(mutex,mem_alloc,mem_free,mutex_lock,mutex_unlock);
+    slots=heventslots_new_with_memmang_and_lock(mutex_cb,mem_alloc,mem_free,mutex_lock,mutex_unlock);
     //最大1000个事件
     heventloop_set_max_events_number(loop,1000);
     while(true)
