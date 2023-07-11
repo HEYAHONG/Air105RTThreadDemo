@@ -311,6 +311,8 @@ void heventslots_unregister_all_slot(heventslots_t *slots)
         slot=next_slot;
     }
 
+    slots->slot_next_id=1;
+
     //解锁
     if(slots->mutex_unlock!=NULL)
     {
