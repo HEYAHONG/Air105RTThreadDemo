@@ -46,7 +46,7 @@ void hwatchdog_set_hardware_dog_feed(void (*hw_feed)());
  */
 void hwatchdog_setup_software_dog(void (*sys_reset)(),uint64_t (*sys_tick_ms)());
 
-/** \brief 检查看门狗是否有效，若无效则说明某系必要参数未设置。
+/** \brief 检查看门狗是否有效，若无效则说明某些必要参数未设置。
  *
  * \return bool 是否有效.
  *
