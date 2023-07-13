@@ -222,7 +222,7 @@ void heventslots_unregister_slot(heventslots_t *slots,uint32_t id)
 
     heventslots_slot_t *slots_slot=slots->slot_start;
 
-    if(slots_slot->id==id)
+    if(slots_slot!=NULL && slots_slot->id==id)
     {
         heventslots_slot_t *slot=slots_slot->next;
         if(slots_slot->onfree!=NULL)

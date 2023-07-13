@@ -252,7 +252,7 @@ void heventchain_uninstall_hook(heventchain_t *chain,uint32_t id)
 
     heventchain_hook_t *chain_hook=chain->hook_start;
 
-    if(chain_hook->id==id)
+    if(chain_hook!=NULL && chain_hook->id==id)
     {
          heventchain_hook_t *hook=chain_hook->next;
         if(chain_hook->onfree!=NULL)
