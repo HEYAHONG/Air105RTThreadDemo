@@ -228,7 +228,7 @@ uint32_t heventchain_install_hook(heventchain_t *chain,uint32_t priority,void *h
 
 void heventchain_uninstall_hook(heventchain_t *chain,uint32_t id)
 {
-    f(chain==NULL)
+    if(chain==NULL)
     {
         return;
     }
