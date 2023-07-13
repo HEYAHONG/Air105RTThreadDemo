@@ -195,6 +195,21 @@ uint32_t heventchain_install_hook(heventchain_t *chain,uint32_t priority,void *h
 
     heventchain_hook_t *chain_hook=chain->hook_start;
 
+    if(chain_hook!=NULL)
+    {
+        if(hook->priority<=chain_hook->priority)
+        {
+            //优先级小于相等，插入链表
+            hook->next=chain_hook;
+            chain->hook_start=hook;
+            chain_hook=NULL;
+        }
+    }
+    else
+    {
+        chain->hook_start=hook;
+    }
+
     while(chain_hook!=NULL)
     {
         if(chain_hook->next==NULL)
@@ -202,9 +217,9 @@ uint32_t heventchain_install_hook(heventchain_t *chain,uint32_t priority,void *h
             chain_hook->next=hook;
             break;
         }
-        if(hook->priority==chain_hook->next->priority)
+        if(hook->priority<=chain_hook->next->priority)
         {
-            //优先级相等，插入链表
+            //优先级小于相等，插入链表
             hook->next=chain_hook->next;
             chain_hook->next=hook;
             break;
@@ -212,10 +227,6 @@ uint32_t heventchain_install_hook(heventchain_t *chain,uint32_t priority,void *h
         chain_hook=chain_hook->next;
     }
 
-    if(chain_hook==NULL)
-    {
-        chain->hook_start=hook;
-    }
 
     //解锁
     if(chain->mutex_unlock!=NULL)
