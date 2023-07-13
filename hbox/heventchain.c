@@ -28,7 +28,7 @@ struct heventchain
     void (*mutex_lock)(void *);
     //解锁,参数为用户参数。
     void (*mutex_unlock)(void *);
-    //槽单向链表指针
+    //钩子单向链表指针
     heventchain_hook_t *hook_start;
     //下一个钩子id
     uint32_t hook_next_id;
