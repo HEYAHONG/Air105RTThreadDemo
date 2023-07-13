@@ -224,6 +224,7 @@ void heventslots_unregister_slot(heventslots_t *slots,uint32_t id)
 
     if(slots_slot->id==id)
     {
+        heventslots_slot_t *slot=slots_slot->next;
         if(slots_slot->onfree!=NULL)
         {
             slots_slot->onfree(slots_slot->usr);
@@ -236,7 +237,7 @@ void heventslots_unregister_slot(heventslots_t *slots,uint32_t id)
         {
             free(slots_slot);
         }
-        slots->slot_start=slots_slot->next;
+        slots->slot_start=slot;
         slots_slot=NULL;
     }
 
