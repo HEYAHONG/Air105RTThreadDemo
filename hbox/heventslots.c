@@ -8,6 +8,7 @@
  **************************************************************/
 
 #include "heventslots.h"
+#include "hdefaults.h"
 
 typedef struct heventslots_slot
 {
@@ -72,27 +73,15 @@ heventslots_t * heventslots_new_with_memmang_and_lock(void *usr,void *(*mem_allo
 }
 heventslots_t * heventslots_new_with_memmang(void *usr,void *(*mem_alloc)(size_t,void *),void (*mem_free)(void *,void *))
 {
-    return heventslots_new_with_memmang_and_lock(usr,mem_alloc,mem_free,NULL,NULL);
+    return heventslots_new_with_memmang_and_lock(usr,mem_alloc,mem_free,hdefaults_mutex_lock,hdefaults_mutex_unlock);
 }
-
-static void*default_malloc(size_t nBytes,void *usr)
-{
-    return malloc(nBytes);
-}
-
-static void default_free(void *ptr,void *usr)
-{
-    return free(ptr);
-}
-
 heventslots_t * heventslots_new_with_lock(void *usr,void (*mutex_lock)(void *),void (*mutex_unlock)(void *))
 {
-    return heventslots_new_with_memmang_and_lock(usr,default_malloc,default_free,mutex_lock,mutex_unlock);
+    return heventslots_new_with_memmang_and_lock(usr,hdefaults_malloc,hdefaults_free,mutex_lock,mutex_unlock);
 }
 heventslots_t * heventslots_new(void *usr)
 {
-    return heventslots_new_with_memmang_and_lock(usr,default_malloc,default_free,NULL,NULL);
-
+    return heventslots_new_with_memmang_and_lock(usr,hdefaults_malloc,hdefaults_free,hdefaults_mutex_lock,hdefaults_mutex_unlock);
 }
 
 void * heventslots_get_usr_ptr(heventslots_t *slots)

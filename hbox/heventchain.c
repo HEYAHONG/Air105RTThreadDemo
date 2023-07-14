@@ -8,6 +8,7 @@
  **************************************************************/
 
 #include "heventchain.h"
+#include "hdefaults.h"
 
 typedef struct heventchain_hook
 {
@@ -74,27 +75,15 @@ heventchain_t * heventchain_new_with_memmang_and_lock(void *usr,void *(*mem_allo
 }
 heventchain_t * heventchain_new_with_memmang(void *usr,void *(*mem_alloc)(size_t,void *),void (*mem_free)(void *,void *))
 {
-    return heventchain_new_with_memmang_and_lock(usr,mem_alloc,mem_free,NULL,NULL);
+    return heventchain_new_with_memmang_and_lock(usr,mem_alloc,mem_free,hdefaults_mutex_lock,hdefaults_mutex_unlock);
 }
-
-static void*default_malloc(size_t nBytes,void *usr)
-{
-    return malloc(nBytes);
-}
-
-static void default_free(void *ptr,void *usr)
-{
-    return free(ptr);
-}
-
 heventchain_t * heventchain_new_with_lock(void *usr,void (*mutex_lock)(void *),void (*mutex_unlock)(void *))
 {
-    return heventchain_new_with_memmang_and_lock(usr,default_malloc,default_free,mutex_lock,mutex_unlock);
+    return heventchain_new_with_memmang_and_lock(usr,hdefaults_malloc,hdefaults_free,mutex_lock,mutex_unlock);
 }
 heventchain_t * heventchain_new(void *usr)
 {
-    return heventchain_new_with_memmang_and_lock(usr,default_malloc,default_free,NULL,NULL);
-
+    return heventchain_new_with_memmang_and_lock(usr,hdefaults_malloc,hdefaults_free,hdefaults_mutex_lock,hdefaults_mutex_unlock);
 }
 
 void * heventchain_get_usr_ptr(heventchain_t *chain)

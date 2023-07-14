@@ -9,6 +9,7 @@
 
 
 #include "hwatchdog.h"
+#include "hdefaults.h"
 typedef struct hwatchdog_watch
 {
     struct hwatchdog_watch *next;
@@ -37,27 +38,17 @@ static struct
 
 } hwatchdog_dog = {0};
 
-static void*default_malloc(size_t nBytes,void *usr)
-{
-    return malloc(nBytes);
-}
-
-static void default_free(void *ptr,void *usr)
-{
-    return free(ptr);
-}
-
 
 static void check_watchdog_parameter()
 {
     if(hwatchdog_dog.mem_alloc==NULL)
     {
-        hwatchdog_dog.mem_alloc=default_malloc;
+        hwatchdog_dog.mem_alloc=hdefaults_malloc;
     }
 
     if(hwatchdog_dog.mem_free==NULL)
     {
-        hwatchdog_dog.mem_free=default_free;
+        hwatchdog_dog.mem_free=hdefaults_free;
     }
 }
 

@@ -8,6 +8,7 @@
  **************************************************************/
 
 #include "heventloop.h"
+#include "hdefaults.h"
 
 typedef struct heventloop_event
 {
@@ -73,26 +74,15 @@ heventloop_t * heventloop_new_with_memmang_and_lock(void *usr,void *(*mem_alloc)
 }
 heventloop_t * heventloop_new_with_memmang(void *usr,void *(*mem_alloc)(size_t,void *),void (*mem_free)(void *,void *))
 {
-    return heventloop_new_with_memmang_and_lock(usr,mem_alloc,mem_free,NULL,NULL);
+    return heventloop_new_with_memmang_and_lock(usr,mem_alloc,mem_free,hdefaults_mutex_lock,hdefaults_mutex_unlock);
 }
-
-static void*default_malloc(size_t nBytes,void *usr)
-{
-    return malloc(nBytes);
-}
-
-static void default_free(void *ptr,void *usr)
-{
-    return free(ptr);
-}
-
 heventloop_t * heventloop_new_with_lock(void *usr,void (*mutex_lock)(void *),void (*mutex_unlock)(void *))
 {
-    return heventloop_new_with_memmang_and_lock(usr,default_malloc,default_free,mutex_lock,mutex_unlock);
+    return heventloop_new_with_memmang_and_lock(usr,hdefaults_malloc,hdefaults_free,mutex_lock,mutex_unlock);
 }
 heventloop_t * heventloop_new(void *usr)
 {
-    return heventloop_new_with_memmang_and_lock(usr,default_malloc,default_free,NULL,NULL);
+    return heventloop_new_with_memmang_and_lock(usr,hdefaults_malloc,hdefaults_free,hdefaults_mutex_lock,hdefaults_mutex_unlock);
 
 }
 
