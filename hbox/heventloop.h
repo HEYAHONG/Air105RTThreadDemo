@@ -1,3 +1,12 @@
+/***************************************************************
+ * Name:      heventloop.h
+ * Purpose:   声明heventloop接口
+ * Author:    HYH (hyhsystem.cn)
+ * Created:   2022-07-14
+ * Copyright: HYH (hyhsystem.cn)
+ * License:   MIT
+ **************************************************************/
+
 #ifndef HEVENTLOOP_H_INCLUDED
 #define HEVENTLOOP_H_INCLUDED
 

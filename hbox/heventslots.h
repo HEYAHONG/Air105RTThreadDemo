@@ -1,3 +1,13 @@
+/***************************************************************
+ * Name:      heventslots.h
+ * Purpose:   声明heventslots接口
+ * Author:    HYH (hyhsystem.cn)
+ * Created:   2022-07-14
+ * Copyright: HYH (hyhsystem.cn)
+ * License:   MIT
+ **************************************************************/
+
+
 #ifndef HEVENTSLOTS_H_INCLUDED
 #define HEVENTSLOTS_H_INCLUDED
 

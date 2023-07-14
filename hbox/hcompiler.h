@@ -1,3 +1,12 @@
+/***************************************************************
+ * Name:      hcompiler.h
+ * Purpose:   定义编译器相关宏定义
+ * Author:    HYH (hyhsystem.cn)
+ * Created:   2022-07-14
+ * Copyright: HYH (hyhsystem.cn)
+ * License:   MIT
+ **************************************************************/
+
 #ifndef HCOMPILER_H_INCLUDED
 #define HCOMPILER_H_INCLUDED
 

@@ -1,3 +1,13 @@
+/***************************************************************
+ * Name:      heventchain.h
+ * Purpose:   声明heventchain接口
+ * Author:    HYH (hyhsystem.cn)
+ * Created:   2022-07-14
+ * Copyright: HYH (hyhsystem.cn)
+ * License:   MIT
+ **************************************************************/
+
+
 #ifndef HEVENTCHAIN_H_INCLUDED
 #define HEVENTCHAIN_H_INCLUDED
 

@@ -1,3 +1,12 @@
+/***************************************************************
+ * Name:      hwatchdog.h
+ * Purpose:   声明hwatchdog接口
+ * Author:    HYH (hyhsystem.cn)
+ * Created:   2022-07-14
+ * Copyright: HYH (hyhsystem.cn)
+ * License:   MIT
+ **************************************************************/
+
 #ifndef HWATCHDOG_H_INCLUDED
 #define HWATCHDOG_H_INCLUDED
 

@@ -1,3 +1,12 @@
+/***************************************************************
+ * Name:      heventchain.c
+ * Purpose:   实现heventchain接口
+ * Author:    HYH (hyhsystem.cn)
+ * Created:   2022-07-14
+ * Copyright: HYH (hyhsystem.cn)
+ * License:   MIT
+ **************************************************************/
+
 #include "heventchain.h"
 
 typedef struct heventchain_hook

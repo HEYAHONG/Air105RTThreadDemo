@@ -1,3 +1,13 @@
+/***************************************************************
+ * Name:      hwatchdog.c
+ * Purpose:   实现hwatchdog接口
+ * Author:    HYH (hyhsystem.cn)
+ * Created:   2022-07-14
+ * Copyright: HYH (hyhsystem.cn)
+ * License:   MIT
+ **************************************************************/
+
+
 #include "hwatchdog.h"
 typedef struct hwatchdog_watch
 {

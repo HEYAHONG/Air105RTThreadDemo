@@ -1,3 +1,12 @@
+/***************************************************************
+ * Name:      heventslots.c
+ * Purpose:   实现heventslots接口
+ * Author:    HYH (hyhsystem.cn)
+ * Created:   2022-07-14
+ * Copyright: HYH (hyhsystem.cn)
+ * License:   MIT
+ **************************************************************/
+
 #include "heventslots.h"
 
 typedef struct heventslots_slot
