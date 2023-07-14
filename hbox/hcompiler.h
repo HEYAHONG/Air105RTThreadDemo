@@ -2,7 +2,7 @@
  * Name:      hcompiler.h
  * Purpose:   定义编译器相关宏定义
  * Author:    HYH (hyhsystem.cn)
- * Created:   2022-07-14
+ * Created:   2023-07-14
  * Copyright: HYH (hyhsystem.cn)
  * License:   MIT
  **************************************************************/
