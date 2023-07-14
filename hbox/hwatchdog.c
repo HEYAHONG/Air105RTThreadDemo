@@ -27,6 +27,10 @@ static struct
     void *(*mem_alloc)(size_t,void *);
     //释放内存,第一个参数为待释放的内存指针,第二个参数为用户参数。
     void (*mem_free)(void *,void *);
+    //锁,参数为用户参数。
+    void (*mutex_lock)(void *);
+    //解锁,参数为用户参数。
+    void (*mutex_unlock)(void *);
     //硬件看门狗喂狗
     void (*hw_feed)();
     //系统复位
@@ -50,9 +54,19 @@ static void check_watchdog_parameter()
     {
         hwatchdog_dog.mem_free=hdefaults_free;
     }
+
+    if(hwatchdog_dog.mutex_lock==NULL)
+    {
+        hwatchdog_dog.mutex_lock=hdefaults_mutex_lock;
+    }
+
+    if(hwatchdog_dog.mutex_unlock==NULL)
+    {
+        hwatchdog_dog.mutex_unlock=hdefaults_mutex_unlock;
+    }
 }
 
-void hwatchdog_set_memmang(void *usr,void *(*mem_alloc)(size_t,void *),void (*mem_free)(void *,void *))
+void hwatchdog_set_memmang_and_lock(void *usr,void *(*mem_alloc)(size_t,void *),void (*mem_free)(void *,void *),void (*mutex_lock)(void *),void (*mutex_unlock)(void *))
 {
     check_watchdog_parameter();
 
@@ -66,6 +80,16 @@ void hwatchdog_set_memmang(void *usr,void *(*mem_alloc)(size_t,void *),void (*me
     if(mem_free!=NULL)
     {
         hwatchdog_dog.mem_free=mem_free;
+    }
+
+    if(mutex_lock!=NULL)
+    {
+        hwatchdog_dog.mutex_lock=mutex_lock;
+    }
+
+    if(mutex_unlock!=NULL)
+    {
+        hwatchdog_dog.mutex_unlock=mutex_unlock;
     }
 }
 
@@ -195,6 +219,12 @@ void hwatchdog_add_watch(bool (*check)(hwatchdog_watch_info_t *info),uint32_t ti
         watch->tick=hwatchdog_dog.sys_tick_ms();
     }
 
+    //加锁
+    if(hwatchdog_dog.mutex_lock!=NULL)
+    {
+        hwatchdog_dog.mutex_lock(hwatchdog_dog.usr);
+    }
+
     if(hwatchdog_dog.watch_start==NULL)
     {
         hwatchdog_dog.watch_start=watch;
@@ -211,6 +241,12 @@ void hwatchdog_add_watch(bool (*check)(hwatchdog_watch_info_t *info),uint32_t ti
             break;
         }
         watch_start=watch_start->next;
+    }
+
+    //解锁
+    if(hwatchdog_dog.mutex_unlock!=NULL)
+    {
+        hwatchdog_dog.mutex_unlock(hwatchdog_dog.usr);
     }
 
 }

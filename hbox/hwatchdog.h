@@ -39,8 +39,10 @@ extern "C"
  * \param  usr void* 用户指针
  * \param  mem_alloc 内存分配函数,第一个参数是待分配的字节数，第二个参数是用户指针
  * \param  mem_free  内存释放函数,第一个参数是已分配的指针，第二个参数是用户指针
+ * \param  mutex_lock 加锁,第一个参数是用户指针
+ * \param  mutex_unlock 解锁,第一个参数是用户指针
  */
-void hwatchdog_set_memmang(void *usr,void *(*mem_alloc)(size_t,void *),void (*mem_free)(void *,void *));
+void hwatchdog_set_memmang_and_lock(void *usr,void *(*mem_alloc)(size_t,void *),void (*mem_free)(void *,void *),void (*mutex_lock)(void *),void (*mutex_unlock)(void *));
 
 /** \brief 获取看门狗用户指针
  *
