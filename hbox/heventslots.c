@@ -175,6 +175,11 @@ uint32_t heventslots_register_slot(heventslots_t *slots,void *slot_usr,void (*on
     slot->id=slots->slot_next_id++;
     slot->next=NULL;
 
+    if(slot->id==0)
+    {
+        slot->id=slots->slot_next_id++;
+    }
+
     //加锁
     if(slots->mutex_lock!=NULL)
     {

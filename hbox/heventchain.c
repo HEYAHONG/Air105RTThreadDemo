@@ -187,6 +187,11 @@ uint32_t heventchain_install_hook(heventchain_t *chain,uint32_t priority,void *h
     hook->priority=priority;
     hook->next=NULL;
 
+    if(hook->id==0)
+    {
+        hook->id=chain->hook_next_id++;
+    }
+
     //加锁
     if(chain->mutex_lock!=NULL)
     {
