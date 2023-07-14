@@ -49,7 +49,7 @@ void hwatchdog_set_memmang_and_lock(void *usr,void *(*mem_alloc)(size_t,void *),
  * \return void* 看门狗用户指针
  *
  */
-void *hwatchdog_get_usr_ptr();
+void *hwatchdog_get_usr_ptr(void);
 
 /** \brief 设置硬件看门狗
  *
@@ -71,7 +71,7 @@ void hwatchdog_setup_software_dog(void (*sys_reset)(),uint64_t (*sys_tick_ms)())
  * \return bool 是否有效.
  *
  */
-bool hwatchdog_is_valid();
+bool hwatchdog_is_valid(void);
 
 /** \brief 看门狗喂狗。
  * 注意:若未设置硬件看门狗且需要使用软件看门狗,则需要确保喂狗一定能得到执行。
@@ -79,7 +79,7 @@ bool hwatchdog_is_valid();
  *
  *
  */
-void hwatchdog_feed();
+void hwatchdog_feed(void);
 
 
 /** \brief 喂狗

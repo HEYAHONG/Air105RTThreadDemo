@@ -93,7 +93,7 @@ void hwatchdog_set_memmang_and_lock(void *usr,void *(*mem_alloc)(size_t,void *),
     }
 }
 
-void *hwatchdog_get_usr_ptr()
+void *hwatchdog_get_usr_ptr(void)
 {
     check_watchdog_parameter();
 
@@ -111,7 +111,7 @@ void hwatchdog_setup_software_dog(void (*sys_reset)(),uint64_t (*sys_tick_ms)())
     hwatchdog_dog.sys_tick_ms=sys_tick_ms;
 }
 
-bool hwatchdog_is_valid()
+bool hwatchdog_is_valid(void)
 {
     check_watchdog_parameter();
 
@@ -128,7 +128,7 @@ bool hwatchdog_is_valid()
     return false;
 }
 
-void hwatchdog_feed()
+void hwatchdog_feed(void)
 {
     check_watchdog_parameter();
 
