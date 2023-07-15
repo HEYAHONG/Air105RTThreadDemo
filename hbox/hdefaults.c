@@ -37,6 +37,8 @@ void  hdefaults_mutex_lock(void *usr)
 {
 #ifdef  __RTTHREAD__
     rt_enter_critical();
+#else
+#warning "hdefaults_mutex_lock is  invalid!"
 #endif
 }
 
@@ -44,5 +46,7 @@ void  hdefaults_mutex_unlock(void *usr)
 {
 #ifdef  __RTTHREAD__
     rt_exit_critical();
+#else
+#warning "hdefaults_mutex_unlock is  invalid!"
 #endif
 }
