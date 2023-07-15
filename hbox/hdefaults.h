@@ -22,6 +22,7 @@ extern "C"
 #include "stdlib.h"
 #include "stdint.h"
 #include "string.h"
+#include "stdbool.h"
 
 /** \brief 默认内存分配
  *
