@@ -25,6 +25,23 @@ void check_mutex_lock()
     }
 }
 #endif // WIN32
+#ifdef __unix__
+#include "pthread.h"
+static pthread_mutex_t g_mutex_lock;
+static pthread_mutexattr_t g_mutex_lock_attr;
+static bool g_is_mutex_lock_init=false;
+void check_mutex_lock()
+{
+    if(!g_is_mutex_lock_init)
+    {
+        pthread_mutexattr_init(&g_mutex_lock_attr);
+        pthread_mutexattr_settype(&g_mutex_lock_attr,PTHREAD_MUTEX_RECURSIVE);
+        pthread_mutex_init(&g_mutex_lock,&g_mutex_lock_attr);
+        g_is_mutex_lock_init=true;
+    }
+}
+#endif // __unix__
+
 
 void * hdefaults_malloc(size_t nBytes,void *usr)
 {
@@ -53,6 +70,9 @@ void  hdefaults_mutex_lock(void *usr)
 #elif defined(WIN32)
     check_mutex_lock();
     EnterCriticalSection(&g_mutex_lock);
+#elif defined(__unix__)
+    check_mutex_lock();
+    pthread_mutex_lock(&g_mutex_lock);
 #else
 #warning "hdefaults_mutex_lock is  invalid!"
 #endif
@@ -65,6 +85,9 @@ void  hdefaults_mutex_unlock(void *usr)
 #elif defined(WIN32)
     check_mutex_lock();
     LeaveCriticalSection(&g_mutex_lock);
+#elif defined(__unix__)
+    check_mutex_lock();
+    pthread_mutex_unlock(&g_mutex_lock);
 #else
 #warning "hdefaults_mutex_unlock is  invalid!"
 #endif
