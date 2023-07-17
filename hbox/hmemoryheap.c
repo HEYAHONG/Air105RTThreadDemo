@@ -249,6 +249,11 @@ void * hmemoryheap_pool_malloc(hmemoryheap_pool_t *pool,size_t nbytes)
                     //已到池末尾
                     break;
                 }
+                if(next_block_start_addr < block_start_addr)
+                {
+                    //不可能出现的情况,下一个块必须在当前块之后
+                    break;
+                }
                 hmemoryheap_pool_block_t * next_block=(hmemoryheap_pool_block_t *)number_to_ptr(next_block_start_addr);
                 if(next_block->blockfree == 1)
                 {
@@ -260,6 +265,16 @@ void * hmemoryheap_pool_malloc(hmemoryheap_pool_t *pool,size_t nbytes)
                 {
                     break;
                 }
+            }
+
+            if(next_block_start_addr < block_start_addr)
+            {
+                //不可能出现的情况,下一个块必须在当前块之后
+                if(pool->onexception!=NULL)
+                {
+                    pool->onexception(pool,HMEMORYHEAP_EXCEPTION_POOL_BROKEN);
+                }
+                break;
             }
 
             if((next_block_start_addr > block_start_addr)&&((next_block_start_addr-block_start_addr) >= (get_hmemoryheap_pool_block_size()+wantedsize)))
@@ -365,6 +380,16 @@ void hmemoryheap_pool_free(hmemoryheap_pool_t *pool,void *ptr)
     {
         uint64_t block_start_addr=ptr_to_number(block);
         uint64_t next_block_start_addr=block->next_block_offset+pool_start_addr;
+
+        if(next_block_start_addr < block_start_addr)
+        {
+            //不可能出现的情况,下一个块必须在当前块之后
+            if(pool->onexception!=NULL)
+            {
+                pool->onexception(pool,HMEMORYHEAP_EXCEPTION_POOL_BROKEN);
+            }
+            break;
+        }
 
         if(ptr_addr == (block_start_addr+get_hmemoryheap_pool_block_size()))
         {

@@ -70,6 +70,7 @@ typedef enum
 {
     HMEMORYHEAP_EXCEPTION_OOM=1, /**< 内存用尽 */
     HMEMORYHEAP_EXCEPTION_DOUBLE_FREE,/**< 释放不存在的内存 */
+    HMEMORYHEAP_EXCEPTION_POOL_BROKEN /**< 堆已经破坏,通常是由于用户写入了超过他申请的长度 */
 } hmemoryheap_exception_type_t; /**< hmemoryheap_exception_type_t类型定义 */
 
 /** \brief 设置异常处理(一般是报告后重启)
