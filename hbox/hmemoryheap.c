@@ -71,7 +71,12 @@ static uint64_t shrink_size_to_aligned_size(uint64_t size)
  *
  *
  */
+#ifdef HMEMORYHEAP_PTR_SIZE
+#define PTR_SIZE  HMEMORYHEAP_PTR_SIZE
+#else
 #define PTR_SIZE 4
+#endif // HMEMORYHEAP_PTR_SIZE
+
 
 static uint64_t ptr_to_number(void *ptr)
 {
