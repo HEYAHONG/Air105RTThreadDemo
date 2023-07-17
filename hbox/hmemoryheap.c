@@ -158,6 +158,8 @@ hmemoryheap_pool_t *hmemoryheap_pool_format(void *usr,void (*mutex_lock)(void *)
         pool_size=shrink_size_to_aligned_size(0x7FFFFFFF);
     }
 
+    pool_end_addr=pool_start_addr+pool_size;
+
     struct hmemoryheap_pool *pool=(struct hmemoryheap_pool *)number_to_ptr(pool_start_addr);
 
     if(pool->magic == HMEMORYHEAP_MAGIC_NUMBER)
