@@ -195,12 +195,38 @@ hmemoryheap_pool_t *hmemoryheap_pool_format_with_default_lock(void *usr,uint8_t 
 
 void * hmemoryheap_pool_get_usr_ptr(hmemoryheap_pool_t *pool)
 {
-    if(pool==NULL)
+    if(pool==NULL || pool->magic!=HMEMORYHEAP_MAGIC_NUMBER)
     {
         return NULL;
     }
 
     return pool->usr;
+}
+
+void hmemoryheap_pool_get_info(hmemoryheap_pool_t *pool,size_t *total_size,size_t *free_size)
+{
+    if(pool==NULL || pool->magic!=HMEMORYHEAP_MAGIC_NUMBER)
+    {
+        if(total_size!=NULL)
+        {
+            (*total_size)=0;
+        }
+        if(free_size!=NULL)
+        {
+            (*free_size)=0;
+        }
+        return;
+    }
+
+    if(total_size!=NULL)
+    {
+        (*total_size)=pool->totalsize;
+    }
+    if(free_size!=NULL)
+    {
+        (*free_size)=pool->freesize;
+    }
+
 }
 
 void  hmemoryheap_pool_set_exception(hmemoryheap_pool_t *pool,void (*onexception)(struct hmemoryheap_pool *pool,hmemoryheap_exception_type_t excetion))
@@ -442,6 +468,11 @@ void hmemoryheap_set_defalut_pool(hmemoryheap_pool_t *pool)
             default_pool=pool;
         }
     }
+}
+
+void hmemoryheap_get_info(size_t *total_size,size_t *free_size)
+{
+    hmemoryheap_pool_get_info(default_pool,total_size,free_size);
 }
 
 bool hmemoryheap_is_ptr_in_default_pool(void *ptr)

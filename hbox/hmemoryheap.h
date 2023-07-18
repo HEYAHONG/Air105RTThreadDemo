@@ -76,6 +76,15 @@ hmemoryheap_pool_t *hmemoryheap_pool_format_with_default_lock(void *usr,uint8_t 
  */
 void * hmemoryheap_pool_get_usr_ptr(hmemoryheap_pool_t *pool);
 
+/** \brief 获取hmemoryheap_pool_t的信息
+ *
+ * \param pool hmemoryheap_pool_t* hmemoryheap_pool_t指针
+ * \param total_size size_t* 总大小
+ * \param free_size size_t* 空闲大小
+ *
+ */
+void hmemoryheap_pool_get_info(hmemoryheap_pool_t *pool,size_t *total_size,size_t *free_size);
+
 typedef enum
 {
     HMEMORYHEAP_EXCEPTION_OOM=1, /**< 内存用尽 */
@@ -128,6 +137,14 @@ void hmemoryheap_pool_free(hmemoryheap_pool_t *pool,void *ptr);
  *
  */
 void hmemoryheap_set_defalut_pool(hmemoryheap_pool_t *pool);
+
+/** \brief 获取默认堆的信息
+ *
+ * \param total_size size_t* 总大小
+ * \param free_size size_t* 空闲大小
+ *
+ */
+void hmemoryheap_get_info(size_t *total_size,size_t *free_size);
 
 /** \brief 指针是否在默认的堆
  *
