@@ -429,3 +429,43 @@ void hmemoryheap_pool_free(hmemoryheap_pool_t *pool,void *ptr)
     }
 
 }
+
+
+static hmemoryheap_pool_t *default_pool=NULL;
+
+void hmemoryheap_set_defalut_pool(hmemoryheap_pool_t *pool)
+{
+    if(pool!=NULL)
+    {
+        if(pool->magic==HMEMORYHEAP_MAGIC_NUMBER)
+        {
+            default_pool=pool;
+        }
+    }
+}
+
+bool hmemoryheap_is_ptr_in_default_pool(void *ptr)
+{
+    if(default_pool!=NULL && ptr!=NULL)
+    {
+        return hmemoryheap_is_ptr_in_pool(default_pool,ptr);
+    }
+    return false;
+}
+
+void *hmemoryheap_malloc(size_t nbytes)
+{
+    if(default_pool!=NULL)
+    {
+        return hmemoryheap_pool_malloc(default_pool,nbytes);
+    }
+    return NULL;
+}
+
+void hmemoryheap_free(void *ptr)
+{
+    if(default_pool!=NULL)
+    {
+        return hmemoryheap_pool_free(default_pool,ptr);
+    }
+}

@@ -80,7 +80,7 @@ typedef enum
 {
     HMEMORYHEAP_EXCEPTION_OOM=1, /**< 内存用尽 */
     HMEMORYHEAP_EXCEPTION_DOUBLE_FREE,/**< 释放不存在的内存 */
-    HMEMORYHEAP_EXCEPTION_POOL_BROKEN /**< 堆已经破坏,通常是由于用户写入了超过他申请的长度 */
+    HMEMORYHEAP_EXCEPTION_POOL_BROKEN /**< 堆已经被破坏,通常是由于用户写入了超过他申请的长度 */
 } hmemoryheap_exception_type_t; /**< hmemoryheap_exception_type_t类型定义 */
 
 /** \brief 设置异常处理(一般是报告后重启)
@@ -117,6 +117,40 @@ bool hmemoryheap_is_ptr_in_pool(hmemoryheap_pool_t *pool,void *ptr);
  *
  */
 void hmemoryheap_pool_free(hmemoryheap_pool_t *pool,void *ptr);
+
+/*
+以下是默认堆相关的API
+*/
+
+/** \brief 设置默认堆
+ *
+ * \param pool hmemoryheap_pool_t* hmemoryheap_pool_t指针
+ *
+ */
+void hmemoryheap_set_defalut_pool(hmemoryheap_pool_t *pool);
+
+/** \brief 指针是否在默认的堆
+ *
+ * \param ptr void* 指针
+ * \return bool 是否在堆中
+ *
+ */
+bool hmemoryheap_is_ptr_in_default_pool(void *ptr);
+
+/** \brief 申请内存(默认堆中)
+ *
+ * \param nbytes size_t 待申请的大小
+ * \return void*已申请的指针
+ *
+ */
+void *hmemoryheap_malloc(size_t nbytes);
+
+/** \brief 释放内存(默认堆中)
+ *
+ * \param ptr void* 指针
+ *
+ */
+void hmemoryheap_free(void *ptr);
 
 #ifdef __cplusplus
 }
