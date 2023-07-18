@@ -58,6 +58,16 @@ typedef struct hmemoryheap_pool hmemoryheap_pool_t; /**< hmemoryheap_pool_t类�
  */
 hmemoryheap_pool_t *hmemoryheap_pool_format(void *usr,void (*mutex_lock)(void *),void (*mutex_unlock)(void *),uint8_t *pool_store,size_t pool_store_size);
 
+/** \brief 将数组格式化为hmemoryheap_pool_t
+ *
+ * \param  usr void*用户参数
+ * \param  pool_store uint8_t* 用于存储数据的数组指针
+ * \param  pool_store_size 用于存储数据的数组大小
+ * \return hmemoryheap_pool_t * hmemoryheap_pool_t指针,失败返回NULL;
+ *
+ */
+hmemoryheap_pool_t *hmemoryheap_pool_format_with_default_lock(void *usr,uint8_t *pool_store,size_t pool_store_size);
+
 /** \brief 获取hmemoryheap_pool_t的用户指针(usr)
  *
  * \param pool hmemoryheap_pool_t* hmemoryheap_pool_t指针

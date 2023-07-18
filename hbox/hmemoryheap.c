@@ -7,6 +7,7 @@
  * License:   MIT
  **************************************************************/
 
+#include "hdefaults.h"
 #include "hmemoryheap.h"
 
 struct hmemoryheap_pool
@@ -185,6 +186,11 @@ hmemoryheap_pool_t *hmemoryheap_pool_format(void *usr,void (*mutex_lock)(void *)
     }
 
     return pool;
+}
+
+hmemoryheap_pool_t *hmemoryheap_pool_format_with_default_lock(void *usr,uint8_t *pool_store,size_t pool_store_size)
+{
+    return hmemoryheap_pool_format(usr,hdefaults_mutex_lock,hdefaults_mutex_unlock,pool_store,pool_store_size);
 }
 
 void * hmemoryheap_pool_get_usr_ptr(hmemoryheap_pool_t *pool)
