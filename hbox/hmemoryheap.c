@@ -47,7 +47,7 @@ static uint64_t expand_size_to_aligned_size(uint64_t size)
 {
     uint64_t ret=size/HMEMORYHEAP_ALIGNED_SIZE*HMEMORYHEAP_ALIGNED_SIZE;
 
-    if(ret%HMEMORYHEAP_ALIGNED_SIZE!=0)
+    if(size%HMEMORYHEAP_ALIGNED_SIZE!=0)
     {
         ret+=HMEMORYHEAP_ALIGNED_SIZE;
     }
