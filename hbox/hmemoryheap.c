@@ -222,9 +222,9 @@ void * hmemoryheap_pool_malloc(hmemoryheap_pool_t *pool,size_t nbytes)
     uint64_t pool_start_addr=ptr_to_number(pool);
     uint64_t pool_end_addr=pool_start_addr+pool->totalsize+get_hmemoryheap_pool_size();
     size_t wantedsize=expand_size_to_aligned_size(nbytes);
-    if(wantedsize > pool->freesize)
+    if(wantedsize > pool->freesize || wantedsize == 0)
     {
-        //剩余空间不够
+        //剩余空间不够或申请空间为0
         return NULL;
     }
     hmemoryheap_pool_block_t * block;
