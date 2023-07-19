@@ -470,6 +470,14 @@ void hmemoryheap_set_defalut_pool(hmemoryheap_pool_t *pool)
     }
 }
 
+void hmemoryheap_get_defalut_pool(hmemoryheap_pool_t **pool_ptr)
+{
+    if(pool_ptr!=NULL)
+    {
+        (*pool_ptr)=default_pool;
+    }
+}
+
 void hmemoryheap_get_info(size_t *total_size,size_t *free_size)
 {
     hmemoryheap_pool_get_info(default_pool,total_size,free_size);

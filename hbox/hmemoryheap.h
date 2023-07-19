@@ -138,6 +138,13 @@ void hmemoryheap_pool_free(hmemoryheap_pool_t *pool,void *ptr);
  */
 void hmemoryheap_set_defalut_pool(hmemoryheap_pool_t *pool);
 
+/** \brief 获取默认堆
+ *
+ * \param pool hmemoryheap_pool_t** hmemoryheap_pool_t指针的指针
+ *
+ */
+void hmemoryheap_get_defalut_pool(hmemoryheap_pool_t **pool_ptr);
+
 /** \brief 获取默认堆的信息
  *
  * \param total_size size_t* 总大小
