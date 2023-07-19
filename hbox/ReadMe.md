@@ -76,13 +76,13 @@ hbox意为HYH的工具箱。
 
 可管理的内存参数如下:
 
-|          项目          |               值(字节)               |               经典值（对齐为4）               |
+|          项目          |               值(字节)               |               经典值（对齐为4,32位系统）               |
 | :--------------------- | :----------------------------: | ---------------------- |
 | 可管理的最大内存字节数 | `2^31 - HMEMORYHEAP_ALIGNED_SIZE` | 0x7FFF FFFC Bytes |
 | 可管理的最小内存字节数(无法分配任何内存，仅供创建堆) | `sizeof(hmemoryheap_pool_block_t)+sizeof(hmemoryheap_pool_t)` | 32 Bytes |
 | 推荐的最小内存字节数 |  | 256 Bytes |
 | 每分配一个指针额外消耗的最小内存 | `sizeof(hmemoryheap_pool_block_t)` | 4 Bytes |
-| 每分配一个指针额外消耗的最大内存 | `sizeof(hmemoryheap_pool_block_t)*2` | 8 Bytes |
+| 每分配一个指针额外消耗的最大内存 | `sizeof(hmemoryheap_pool_block_t)*2+（HMEMORYHEAP_ALIGNED_SIZE-1）` | 11 Bytes |
 
 可配置的宏定义如下:
 
