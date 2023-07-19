@@ -9,6 +9,21 @@
 
 #include "hobject.h"
 
+void hobject_cleanup(hobject_base_t *obj_ptr)
+{
+    if(obj_ptr!=NULL)
+    {
+        if(obj_ptr->type==HOBJECT_BASE_TYPE_MANAGED_PTR)
+        {
+            hobject_managed_ptr_cleanup((hobject_managed_ptr_t *)(void*)obj_ptr);
+        }
+        if(obj_ptr->type==HOBJECT_BASE_TYPE_MANAGED_ARRAY_PTR)
+        {
+            hobject_managed_array_ptr_cleanup((hobject_managed_array_ptr_t *)(void *)obj_ptr);
+        }
+    }
+}
+
 void hobject_simple_ptr_init(hobject_simple_ptr_t *obj_ptr,uint16_t usr_type,void *ptr)
 {
     if(obj_ptr!=NULL)

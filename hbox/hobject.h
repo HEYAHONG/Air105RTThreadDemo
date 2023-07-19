@@ -49,7 +49,14 @@ typedef struct
     uint16_t usr_type; /**< 用户类型,由用户自定义 */
 } hobject_base_t; /**< 对象基类 */
 
-/** \brief 从对象指针中获取基类指针(仅限由对象基类派生的)
+/** \brief 清理（注意:清理后将不能再使用该指针，除开free）
+ *
+ * \param obj_ptr hobject_base_t* hobject_base_t指针(仅限由派生类转化的指针)
+ *
+ */
+void hobject_cleanup(hobject_base_t *obj_ptr);
+
+/** \brief 从对象指针中获取基类指针(仅限由基类派生的对象)
  *
  * \param  对象指针
  * \return 对象基类指针
