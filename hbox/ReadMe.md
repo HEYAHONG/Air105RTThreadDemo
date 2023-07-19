@@ -93,7 +93,9 @@ hbox意为HYH的工具箱。
 |     `HMEMORYHEAP_PTR_SIZE`      |       指针大小。默认不定义(默认为4)。        | 对于64位系统一定要指定为8。 |
 | `HMEMORYHEAP_DEFAULT_POOL_SIZE` |    默认堆大小。至少256字节。默认不定义。     |                             |
 
+## hobject
 
+本组件主要用于实现一些基于C的对象的相关操作。
 
 
 
