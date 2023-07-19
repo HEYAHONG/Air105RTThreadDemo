@@ -459,6 +459,22 @@ void hmemoryheap_pool_free(hmemoryheap_pool_t *pool,void *ptr)
 
 static hmemoryheap_pool_t *default_pool=NULL;
 
+#if HMEMORYHEAP_DEFAULT_POOL_SIZE >= 256
+static uint8_t pool_store[HMEMORYHEAP_DEFAULT_POOL_SIZE]= {0};
+static bool g_is_defalut_pool_init=false;
+static void check_default_pool()
+{
+    if(!g_is_defalut_pool_init)
+    {
+        if(default_pool==NULL)
+        {
+            default_pool=hmemoryheap_pool_format_with_default_lock(NULL,pool_store,sizeof(pool_store));
+        }
+        g_is_defalut_pool_init=true;
+    }
+}
+#endif // HMEMORYHEAP_DEFAULT_POOL_SIZE
+
 void hmemoryheap_set_defalut_pool(hmemoryheap_pool_t *pool)
 {
     if(pool!=NULL)
@@ -472,6 +488,9 @@ void hmemoryheap_set_defalut_pool(hmemoryheap_pool_t *pool)
 
 void hmemoryheap_get_defalut_pool(hmemoryheap_pool_t **pool_ptr)
 {
+#if HMEMORYHEAP_DEFAULT_POOL_SIZE >= 256
+    check_default_pool();
+#endif // HMEMORYHEAP_DEFAULT_POOL_SIZE
     if(pool_ptr!=NULL)
     {
         (*pool_ptr)=default_pool;
@@ -480,11 +499,17 @@ void hmemoryheap_get_defalut_pool(hmemoryheap_pool_t **pool_ptr)
 
 void hmemoryheap_get_info(size_t *total_size,size_t *free_size)
 {
+#if HMEMORYHEAP_DEFAULT_POOL_SIZE >= 256
+    check_default_pool();
+#endif // HMEMORYHEAP_DEFAULT_POOL_SIZE
     hmemoryheap_pool_get_info(default_pool,total_size,free_size);
 }
 
 bool hmemoryheap_is_ptr_in_default_pool(void *ptr)
 {
+#if HMEMORYHEAP_DEFAULT_POOL_SIZE >= 256
+    check_default_pool();
+#endif // HMEMORYHEAP_DEFAULT_POOL_SIZE
     if(default_pool!=NULL && ptr!=NULL)
     {
         return hmemoryheap_is_ptr_in_pool(default_pool,ptr);
@@ -494,6 +519,9 @@ bool hmemoryheap_is_ptr_in_default_pool(void *ptr)
 
 void *hmemoryheap_malloc(size_t nbytes)
 {
+#if HMEMORYHEAP_DEFAULT_POOL_SIZE >= 256
+    check_default_pool();
+#endif // HMEMORYHEAP_DEFAULT_POOL_SIZE
     if(default_pool!=NULL)
     {
         return hmemoryheap_pool_malloc(default_pool,nbytes);
@@ -503,6 +531,9 @@ void *hmemoryheap_malloc(size_t nbytes)
 
 void hmemoryheap_free(void *ptr)
 {
+#if HMEMORYHEAP_DEFAULT_POOL_SIZE >= 256
+    check_default_pool();
+#endif // HMEMORYHEAP_DEFAULT_POOL_SIZE
     if(default_pool!=NULL)
     {
         return hmemoryheap_pool_free(default_pool,ptr);
