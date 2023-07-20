@@ -423,7 +423,7 @@ typedef struct
     */
     uint16_t data;
 
-} hobject_uint16_t; /**< UINT8结构体 */
+} hobject_uint16_t; /**< UINT16结构体 */
 
 /** \brief hobject_uint16_t初始化
  *
@@ -501,7 +501,7 @@ typedef struct
     */
     uint32_t data;
 
-} hobject_uint32_t; /**< UINT8结构体 */
+} hobject_uint32_t; /**< UINT32结构体 */
 
 /** \brief hobject_uint32_t初始化
  *
@@ -579,7 +579,7 @@ typedef struct
     */
     uint64_t data;
 
-} hobject_uint64_t; /**< UINT8结构体 */
+} hobject_uint64_t; /**< UINT64结构体 */
 
 /** \brief hobject_uint64_t初始化
  *
@@ -604,7 +604,7 @@ hobject_base_t * hobject_uint64_base(hobject_uint64_t *obj_ptr);
  * \return hobject_uint64_t* hobject_uint64_t对象指针,失败返回NULL
  *
  */
-hobject_uint64_t * object_uint64(hobject_base_t *base);
+hobject_uint64_t * hobject_uint64(hobject_base_t *base);
 
 #ifdef __cplusplus
 }
