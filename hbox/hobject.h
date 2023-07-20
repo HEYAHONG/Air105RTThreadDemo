@@ -255,6 +255,357 @@ hobject_base_t *hobject_managed_array_ptr_base(hobject_managed_array_ptr_t *obj_
  */
 hobject_managed_array_ptr_t *hobject_managed_array_ptr(hobject_base_t *base);
 
+typedef struct
+{
+    /** \brief 基类
+    *
+    */
+    hobject_base_t base;
+
+    /** \brief 数据
+    *
+    */
+    double data;
+
+} hobject_double_t; /**< DOUBLE结构体 */
+
+/** \brief hobject_double_t初始化
+ *
+ * \param obj_ptr hobject_double_t* hobject_double_t对象指针
+ * \param usr_type uint16_t 用户类型
+ * \param data double 数据
+ *
+ */
+void hobject_double_init(hobject_double_t *obj_ptr,uint16_t usr_type,double data);
+
+/** \brief  hobject_double_t获取基类指针
+ *
+ * \param obj_ptr hobject_double_t* hobject_double_t对象指针
+ * \return hobject_base_t* hobject_base_t基类指针
+ *
+ */
+hobject_base_t * hobject_double_base(hobject_double_t *obj_ptr);
+
+/** \brief 获取hobject_double_t对象指针
+ *
+ * \param  base hobject_base_t* hobject_base_t基类指针
+ * \return hobject_double_t* hobject_double_t对象指针,失败返回NULL
+ *
+ */
+hobject_double_t * hobject_double(hobject_base_t *base);
+
+typedef struct
+{
+    /** \brief 基类
+    *
+    */
+    hobject_base_t base;
+
+    /** \brief 数据
+    *
+    */
+    int8_t data;
+
+} hobject_int8_t; /**< INT8结构体 */
+
+/** \brief hobject_int8_t初始化
+ *
+ * \param obj_ptr hobject_int8_t* hobject_int8_t对象指针
+ * \param usr_type uint16_t 用户类型
+ * \param data int8_t 数据
+ *
+ */
+void hobject_int8_init(hobject_int8_t *obj_ptr,uint16_t usr_type,int8_t data);
+
+/** \brief  hobject_int8_t获取基类指针
+ *
+ * \param obj_ptr hobject_int8_t* hobject_int8_t对象指针
+ * \return hobject_base_t* hobject_base_t基类指针
+ *
+ */
+hobject_base_t * hobject_int8_base(hobject_int8_t *obj_ptr);
+
+/** \brief 获取hobject_int8_t对象指针
+ *
+ * \param  base hobject_base_t* hobject_base_t基类指针
+ * \return hobject_int8_t* hobject_int8_t对象指针,失败返回NULL
+ *
+ */
+hobject_int8_t * hobject_int8(hobject_base_t *base);
+
+typedef struct
+{
+    /** \brief 基类
+    *
+    */
+    hobject_base_t base;
+
+    /** \brief 数据
+    *
+    */
+    uint8_t data;
+
+} hobject_uint8_t; /**< UINT8结构体 */
+
+/** \brief hobject_uint8_t初始化
+ *
+ * \param obj_ptr hobject_uint8_t* hobject_uint8_t对象指针
+ * \param usr_type uint16_t 用户类型
+ * \param data uint8_t 数据
+ *
+ */
+void hobject_uint8_init(hobject_uint8_t *obj_ptr,uint16_t usr_type,uint8_t data);
+
+/** \brief  hobject_uint8_t获取基类指针
+ *
+ * \param obj_ptr hobject_uint8_t* hobject_uint8_t对象指针
+ * \return hobject_base_t* hobject_base_t基类指针
+ *
+ */
+hobject_base_t * hobject_uint8_base(hobject_uint8_t *obj_ptr);
+
+/** \brief 获取hobject_uint8_t对象指针
+ *
+ * \param  base hobject_base_t* hobject_base_t基类指针
+ * \return hobject_uint8_t* hobject_uint8_t对象指针,失败返回NULL
+ *
+ */
+hobject_uint8_t * hobject_uint8(hobject_base_t *base);
+
+typedef struct
+{
+    /** \brief 基类
+    *
+    */
+    hobject_base_t base;
+
+    /** \brief 数据
+    *
+    */
+    int16_t data;
+
+} hobject_int16_t; /**< INT16结构体 */
+
+/** \brief hobject_int16_t初始化
+ *
+ * \param obj_ptr hobject_int16_t* hobject_int16_t对象指针
+ * \param usr_type uint16_t 用户类型
+ * \param data int16_t 数据
+ *
+ */
+void hobject_int16_init(hobject_int16_t *obj_ptr,uint16_t usr_type,int16_t data);
+
+/** \brief  hobject_int16_t获取基类指针
+ *
+ * \param obj_ptr hobject_int16_t* hobject_int16_t对象指针
+ * \return hobject_base_t* hobject_base_t基类指针
+ *
+ */
+hobject_base_t * hobject_int16_base(hobject_int16_t *obj_ptr);
+
+/** \brief 获取hobject_int16_t对象指针
+ *
+ * \param  base hobject_base_t* hobject_base_t基类指针
+ * \return hobject_int16_t* hobject_int16_t对象指针,失败返回NULL
+ *
+ */
+hobject_int16_t * hobject_int16(hobject_base_t *base);
+
+typedef struct
+{
+    /** \brief 基类
+    *
+    */
+    hobject_base_t base;
+
+    /** \brief 数据
+    *
+    */
+    uint16_t data;
+
+} hobject_uint16_t; /**< UINT8结构体 */
+
+/** \brief hobject_uint16_t初始化
+ *
+ * \param obj_ptr hobject_uint16_t* hobject_uint16_t对象指针
+ * \param usr_type uint16_t 用户类型
+ * \param data uint16_t 数据
+ *
+ */
+void hobject_uint16_init(hobject_uint16_t *obj_ptr,uint16_t usr_type,uint16_t data);
+
+/** \brief  hobject_uint16_t获取基类指针
+ *
+ * \param obj_ptr hobject_uint16_t* hobject_uint16_t对象指针
+ * \return hobject_base_t* hobject_base_t基类指针
+ *
+ */
+hobject_base_t * hobject_uint16_base(hobject_uint16_t *obj_ptr);
+
+/** \brief 获取hobject_uint16_t对象指针
+ *
+ * \param  base hobject_base_t* hobject_base_t基类指针
+ * \return hobject_uint16_t* hobject_uint16_t对象指针,失败返回NULL
+ *
+ */
+hobject_uint16_t * hobject_uint16(hobject_base_t *base);
+
+typedef struct
+{
+    /** \brief 基类
+    *
+    */
+    hobject_base_t base;
+
+    /** \brief 数据
+    *
+    */
+    int32_t data;
+
+} hobject_int32_t; /**< INT32结构体 */
+
+/** \brief hobject_int32_t初始化
+ *
+ * \param obj_ptr hobject_int32_t* hobject_int32_t对象指针
+ * \param usr_type uint16_t 用户类型
+ * \param data int32_t 指针
+ *
+ */
+void hobject_int32_init(hobject_int32_t *obj_ptr,uint16_t usr_type,int32_t data);
+
+/** \brief  hobject_int32_t获取基类指针
+ *
+ * \param obj_ptr hobject_int32_t* hobject_int32_t对象指针
+ * \return hobject_base_t* hobject_base_t基类指针
+ *
+ */
+hobject_base_t * hobject_int32_base(hobject_int32_t *obj_ptr);
+
+/** \brief 获取hobject_int32_t对象指针
+ *
+ * \param  base hobject_base_t* hobject_base_t基类指针
+ * \return hobject_int32_t* hobject_int32_t对象指针,失败返回NULL
+ *
+ */
+hobject_int32_t * hobject_int32(hobject_base_t *base);
+
+typedef struct
+{
+    /** \brief 基类
+    *
+    */
+    hobject_base_t base;
+
+    /** \brief 数据
+    *
+    */
+    uint32_t data;
+
+} hobject_uint32_t; /**< UINT8结构体 */
+
+/** \brief hobject_uint32_t初始化
+ *
+ * \param obj_ptr hobject_uint32_t* hobject_uint32_t对象指针
+ * \param usr_type uint16_t 用户类型
+ * \param data uint32_t 数据
+ *
+ */
+void hobject_uint32_init(hobject_uint32_t *obj_ptr,uint16_t usr_type,uint32_t data);
+
+/** \brief  hobject_uint32_t获取基类指针
+ *
+ * \param obj_ptr hobject_uint32_t* hobject_uint32_t对象指针
+ * \return hobject_base_t* hobject_base_t基类指针
+ *
+ */
+hobject_base_t * hobject_uint32_base(hobject_uint32_t *obj_ptr);
+
+/** \brief 获取hobject_uint32_t对象指针
+ *
+ * \param  base hobject_base_t* hobject_base_t基类指针
+ * \return hobject_uint32_t* hobject_uint32_t对象指针,失败返回NULL
+ *
+ */
+hobject_uint32_t * hobject_uint32(hobject_base_t *base);
+
+typedef struct
+{
+    /** \brief 基类
+    *
+    */
+    hobject_base_t base;
+
+    /** \brief 数据
+    *
+    */
+    int64_t data;
+
+} hobject_int64_t; /**< INT64结构体 */
+
+/** \brief hobject_int64_t初始化
+ *
+ * \param obj_ptr hobject_int64_t* hobject_int64_t对象指针
+ * \param usr_type uint16_t 用户类型
+ * \param data int64_t 指针
+ *
+ */
+void hobject_int64_init(hobject_int64_t *obj_ptr,uint16_t usr_type,int64_t data);
+
+/** \brief  hobject_int64_t获取基类指针
+ *
+ * \param obj_ptr hobject_int64_t* hobject_int64_t对象指针
+ * \return hobject_base_t* hobject_base_t基类指针
+ *
+ */
+hobject_base_t * hobject_int64_base(hobject_int64_t *obj_ptr);
+
+/** \brief 获取hobject_int64_t对象指针
+ *
+ * \param  base hobject_base_t* hobject_base_t基类指针
+ * \return hobject_int64_t* hobject_int64_t对象指针,失败返回NULL
+ *
+ */
+hobject_int64_t * hobject_int64(hobject_base_t *base);
+
+typedef struct
+{
+    /** \brief 基类
+    *
+    */
+    hobject_base_t base;
+
+    /** \brief 数据
+    *
+    */
+    uint64_t data;
+
+} hobject_uint64_t; /**< UINT8结构体 */
+
+/** \brief hobject_uint64_t初始化
+ *
+ * \param obj_ptr hobject_uint64_t* hobject_uint64_t对象指针
+ * \param usr_type uint16_t 用户类型
+ * \param data uint64_t 数据
+ *
+ */
+void hobject_uint64_init(hobject_uint64_t *obj_ptr,uint16_t usr_type,uint64_t data);
+
+/** \brief  hobject_uint64_t获取基类指针
+ *
+ * \param obj_ptr hobject_uint64_t* hobject_uint64_t对象指针
+ * \return hobject_base_t* hobject_base_t基类指针
+ *
+ */
+hobject_base_t * hobject_uint64_base(hobject_uint64_t *obj_ptr);
+
+/** \brief 获取hobject_uint64_t对象指针
+ *
+ * \param  base hobject_base_t* hobject_base_t基类指针
+ * \return hobject_uint64_t* hobject_uint64_t对象指针,失败返回NULL
+ *
+ */
+hobject_uint64_t * object_uint64(hobject_base_t *base);
+
 #ifdef __cplusplus
 }
 #endif // __cplusplus

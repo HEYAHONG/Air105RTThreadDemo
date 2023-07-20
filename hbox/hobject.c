@@ -162,3 +162,254 @@ hobject_managed_array_ptr_t *hobject_managed_array_ptr(hobject_base_t *base)
     return NULL;
 }
 
+void hobject_double_init(hobject_double_t *obj_ptr,uint16_t usr_type,double data)
+{
+    if(obj_ptr!=NULL)
+    {
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_DOUBLE;
+        base->usr_type=usr_type;
+        obj_ptr->data=data;
+    }
+}
+
+hobject_base_t * hobject_double_base(hobject_double_t *obj_ptr)
+{
+    return HOBJECT_BASE(obj_ptr);
+}
+
+hobject_double_t * hobject_double(hobject_base_t *base)
+{
+    if(base!=NULL)
+    {
+        if(base->type==HOBJECT_BASE_TYPE_DOUBLE)
+        {
+            return (hobject_double_t *)(void *)base;
+        }
+    }
+    return NULL;
+}
+
+void hobject_int8_init(hobject_int8_t *obj_ptr,uint16_t usr_type,int8_t data)
+{
+    if(obj_ptr!=NULL)
+    {
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_INT8;
+        base->usr_type=usr_type;
+        obj_ptr->data=data;
+    }
+}
+
+hobject_base_t * hobject_int8_base(hobject_int8_t *obj_ptr)
+{
+    return HOBJECT_BASE(obj_ptr);
+}
+
+hobject_int8_t * hobject_int8(hobject_base_t *base)
+{
+    if(base!=NULL)
+    {
+        if(base->type==HOBJECT_BASE_TYPE_INT8)
+        {
+            return (hobject_int8_t *)(void *)base;
+        }
+    }
+    return NULL;
+}
+
+void hobject_uint8_init(hobject_uint8_t *obj_ptr,uint16_t usr_type,uint8_t data)
+{
+    if(obj_ptr!=NULL)
+    {
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_UINT8;
+        base->usr_type=usr_type;
+        obj_ptr->data=data;
+    }
+}
+
+hobject_base_t * hobject_uint8_base(hobject_uint8_t *obj_ptr)
+{
+    return HOBJECT_BASE(obj_ptr);
+}
+
+hobject_uint8_t * hobject_uint8(hobject_base_t *base)
+{
+    if(base!=NULL)
+    {
+        if(base->type==HOBJECT_BASE_TYPE_UINT8)
+        {
+            return (hobject_uint8_t *)(void *)base;
+        }
+    }
+    return NULL;
+}
+
+void hobject_int16_init(hobject_int16_t *obj_ptr,uint16_t usr_type,int16_t data)
+{
+    if(obj_ptr!=NULL)
+    {
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_INT16;
+        base->usr_type=usr_type;
+        obj_ptr->data=data;
+    }
+}
+
+hobject_base_t * hobject_int16_base(hobject_int16_t *obj_ptr)
+{
+    return HOBJECT_BASE(obj_ptr);
+}
+
+hobject_int16_t * hobject_int16(hobject_base_t *base)
+{
+    if(base!=NULL)
+    {
+        if(base->type==HOBJECT_BASE_TYPE_INT16)
+        {
+            return (hobject_int16_t *)(void *)base;
+        }
+    }
+    return NULL;
+}
+
+void hobject_uint16_init(hobject_uint16_t *obj_ptr,uint16_t usr_type,uint16_t data)
+{
+    if(obj_ptr!=NULL)
+    {
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_UINT16;
+        base->usr_type=usr_type;
+        obj_ptr->data=data;
+    }
+}
+
+hobject_base_t * hobject_uint16_base(hobject_uint16_t *obj_ptr)
+{
+    return HOBJECT_BASE(obj_ptr);
+}
+
+hobject_uint16_t * hobject_uint16(hobject_base_t *base)
+{
+    if(base!=NULL)
+    {
+        if(base->type==HOBJECT_BASE_TYPE_UINT16)
+        {
+            return (hobject_uint16_t *)(void *)base;
+        }
+    }
+    return NULL;
+}
+
+void hobject_int32_init(hobject_int32_t *obj_ptr,uint16_t usr_type,int32_t data)
+{
+    if(obj_ptr!=NULL)
+    {
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_INT32;
+        base->usr_type=usr_type;
+        obj_ptr->data=data;
+    }
+}
+
+hobject_base_t * hobject_int32_base(hobject_int32_t *obj_ptr)
+{
+    return HOBJECT_BASE(obj_ptr);
+}
+
+hobject_int32_t * hobject_int32(hobject_base_t *base)
+{
+    if(base!=NULL)
+    {
+        if(base->type==HOBJECT_BASE_TYPE_INT32)
+        {
+            return (hobject_int32_t *)(void *)base;
+        }
+    }
+    return NULL;
+}
+
+void hobject_uint32_init(hobject_uint32_t *obj_ptr,uint16_t usr_type,uint32_t data)
+{
+    if(obj_ptr!=NULL)
+    {
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_UINT32;
+        base->usr_type=usr_type;
+        obj_ptr->data=data;
+    }
+}
+
+hobject_base_t * hobject_uint32_base(hobject_uint32_t *obj_ptr)
+{
+    return HOBJECT_BASE(obj_ptr);
+}
+
+hobject_uint32_t * hobject_uint32(hobject_base_t *base)
+{
+    if(base!=NULL)
+    {
+        if(base->type==HOBJECT_BASE_TYPE_UINT32)
+        {
+            return (hobject_uint32_t *)(void *)base;
+        }
+    }
+    return NULL;
+}
+
+void hobject_int64_init(hobject_int64_t *obj_ptr,uint16_t usr_type,int64_t data)
+{
+    if(obj_ptr!=NULL)
+    {
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_INT64;
+        base->usr_type=usr_type;
+        obj_ptr->data=data;
+    }
+}
+
+hobject_base_t * hobject_int64_base(hobject_int64_t *obj_ptr)
+{
+    return HOBJECT_BASE(obj_ptr);
+}
+
+hobject_int64_t * hobject_int64(hobject_base_t *base)
+{
+    if(base!=NULL)
+    {
+        if(base->type==HOBJECT_BASE_TYPE_INT64)
+        {
+            return (hobject_int64_t *)(void *)base;
+        }
+    }
+    return NULL;
+}
+
+void hobject_uint64_init(hobject_uint64_t *obj_ptr,uint16_t usr_type,uint64_t data)
+{
+    if(obj_ptr!=NULL)
+    {
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_UINT64;
+        base->usr_type=usr_type;
+        obj_ptr->data=data;
+    }
+}
+
+hobject_base_t * hobject_uint64_base(hobject_uint64_t *obj_ptr)
+{
+    return HOBJECT_BASE(obj_ptr);
+}
+
+hobject_uint64_t * hobject_uint64(hobject_base_t *base)
+{
+    if(base!=NULL)
+    {
+        if(base->type==HOBJECT_BASE_TYPE_UINT64)
+        {
+            return (hobject_uint64_t *)(void *)base;
+        }
+    }
+    return NULL;
+}
