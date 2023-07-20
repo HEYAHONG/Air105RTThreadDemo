@@ -468,7 +468,7 @@ typedef struct
  *
  * \param obj_ptr hobject_int32_t* hobject_int32_t对象指针
  * \param usr_type uint16_t 用户类型
- * \param data int32_t 指针
+ * \param data int32_t 数据
  *
  */
 void hobject_int32_init(hobject_int32_t *obj_ptr,uint16_t usr_type,int32_t data);
@@ -546,7 +546,7 @@ typedef struct
  *
  * \param obj_ptr hobject_int64_t* hobject_int64_t对象指针
  * \param usr_type uint16_t 用户类型
- * \param data int64_t 指针
+ * \param data int64_t 数据
  *
  */
 void hobject_int64_init(hobject_int64_t *obj_ptr,uint16_t usr_type,int64_t data);
