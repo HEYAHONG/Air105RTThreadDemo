@@ -21,6 +21,10 @@ void hobject_cleanup(hobject_base_t *obj_ptr)
         {
             hobject_managed_array_ptr_cleanup((hobject_managed_array_ptr_t *)(void *)obj_ptr);
         }
+        if(obj_ptr->type==HOBJECT_BASE_TYPE_MANAGED_STRUCT)
+        {
+            hobject_managed_struct_cleanup((hobject_managed_struct_t *)(void *)obj_ptr);
+        }
     }
 }
 
@@ -409,6 +413,101 @@ hobject_uint64_t * hobject_uint64(hobject_base_t *base)
         if(base->type==HOBJECT_BASE_TYPE_UINT64)
         {
             return (hobject_uint64_t *)(void *)base;
+        }
+    }
+    return NULL;
+}
+
+size_t hobject_struct_get_size(size_t struct_size)
+{
+    return struct_size+sizeof(hobject_struct_t);
+}
+
+void * hobject_struct_get_struct_ptr(hobject_struct_t *obj_ptr)
+{
+    if(obj_ptr!=NULL)
+    {
+        return (void *)obj_ptr->o_struct;
+    }
+    return NULL;
+}
+
+void hobject_struct_init(hobject_struct_t *obj_ptr,uint16_t usr_type)
+{
+    if(obj_ptr!=NULL)
+    {
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_STRUCT;
+        base->usr_type=usr_type;
+    }
+}
+
+hobject_base_t * hobject_struct_base(hobject_struct_t *obj_ptr)
+{
+     return HOBJECT_BASE(obj_ptr);
+}
+
+hobject_struct_t * hobject_struct(hobject_base_t *base)
+{
+    if(base!=NULL)
+    {
+        if(base->type==HOBJECT_BASE_TYPE_STRUCT)
+        {
+            return (hobject_struct_t *)(void *)base;
+        }
+    }
+    return NULL;
+}
+
+size_t hobject_managed_struct_get_size(size_t struct_size)
+{
+    return struct_size+sizeof(hobject_managed_struct_t);
+}
+
+void * hobject_managed_struct_get_struct_ptr(hobject_managed_struct_t *obj_ptr)
+{
+    if(obj_ptr!=NULL)
+    {
+        return (void *)obj_ptr->o_struct;
+    }
+    return NULL;
+}
+
+
+void hobject_managed_struct_cleanup(hobject_managed_struct_t *obj_ptr)
+{
+    if(obj_ptr!=NULL)
+    {
+        if(obj_ptr->onfree!=NULL)
+        {
+            obj_ptr->onfree(obj_ptr);
+        }
+    }
+}
+
+void hobject_managed_struct_init(hobject_managed_struct_t *obj_ptr,uint16_t usr_type,void (*onfree)(hobject_managed_struct_t *obj_ptr))
+{
+    if(obj_ptr!=NULL)
+    {
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_MANAGED_STRUCT;
+        base->usr_type=usr_type;
+        obj_ptr->onfree=onfree;
+    }
+}
+
+hobject_base_t * hobject_managed_struct_base(hobject_managed_struct_t *obj_ptr)
+{
+     return HOBJECT_BASE(obj_ptr);
+}
+
+hobject_managed_struct_t * hobject_managed_struct(hobject_base_t *base)
+{
+    if(base!=NULL)
+    {
+        if(base->type==HOBJECT_BASE_TYPE_MANAGED_STRUCT)
+        {
+            return (hobject_managed_struct_t *)(void *)base;
         }
     }
     return NULL;

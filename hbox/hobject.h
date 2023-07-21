@@ -41,6 +41,8 @@ typedef enum
     HOBJECT_BASE_TYPE_UINT32, /**< 无符号整型(32位) */
     HOBJECT_BASE_TYPE_INT64, /**< 整型(64位) */
     HOBJECT_BASE_TYPE_UINT64, /**< 无符号整型(64位) */
+    HOBJECT_BASE_TYPE_STRUCT, /**< 结构体(实际的结构体附在结构体基类之后,通常使用动态内存进行分配) */
+    HOBJECT_BASE_TYPE_MANAGED_STRUCT /**< 结构体(实际的结构体附在结构体基类之后,通常使用动态内存进行分配,即带释放回调的指针) */
 } hobject_base_type_t; /**< 基本对象类型 */
 
 typedef struct
@@ -605,6 +607,130 @@ hobject_base_t * hobject_uint64_base(hobject_uint64_t *obj_ptr);
  *
  */
 hobject_uint64_t * hobject_uint64(hobject_base_t *base);
+
+typedef struct
+{
+    /** \brief 基类
+    *
+    */
+    hobject_base_t base;
+
+    /** \brief 结构体,表明真正的结构体的首地址。
+    *
+    */
+    uint8_t o_struct[0];
+
+} hobject_struct_t; /**< 结构体类型结构体 */
+
+/** \brief 获取实际需要申请的内存空间大小
+ *
+ * \param struct_size size_t 结构体大小
+ * \return size_t 实际所需空间,如需申请空间使用此返回值
+ *
+ */
+size_t hobject_struct_get_size(size_t struct_size);
+
+
+/** \brief获取真正的结构体指针
+ *
+ * \param obj_ptr hobject_struct_t* hobject_struct_t对象指针
+ * \return void* 真正的结构体指针
+ *
+ */
+void * hobject_struct_get_struct_ptr(hobject_struct_t *obj_ptr);
+
+/** \brief hobject_struct_t初始化
+ *
+ * \param obj_ptr hobject_struct_t* hobject_struct_t对象指针
+ * \param usr_type uint16_t 用户类型
+ *
+ */
+void hobject_struct_init(hobject_struct_t *obj_ptr,uint16_t usr_type);
+
+/** \brief  hobject_struct_t获取基类指针
+ *
+ * \param obj_ptr hobject_struct_t* hobject_struct_t对象指针
+ * \return hobject_base_t* hobject_base_t基类指针
+ *
+ */
+hobject_base_t * hobject_struct_base(hobject_struct_t *obj_ptr);
+
+/** \brief 获取hobject_struct_t对象指针
+ *
+ * \param  base hobject_base_t* hobject_base_t基类指针
+ * \return hobject_struct_t* hobject_struct_t对象指针,失败返回NULL
+ *
+ */
+hobject_struct_t * hobject_struct(hobject_base_t *base);
+
+typedef struct __hobject_managed_struct
+{
+    /** \brief 基类
+    *
+    */
+    hobject_base_t base;
+
+    /** \brief 释放回调，一般用于清理,一般使用hobject_managed_struct_cleanup自动调用
+    *
+    */
+    void (*onfree)(struct  __hobject_managed_struct *obj_ptr);
+
+    /** \brief 结构体,表明真正的结构体的首地址。
+    *
+    */
+    uint8_t o_struct[0];
+
+} hobject_managed_struct_t; /**< 管理的结构体类型结构体 */
+
+/** \brief 获取实际需要申请的内存空间大小
+ *
+ * \param struct_size size_t 结构体大小
+ * \return size_t 实际所需空间,如需申请空间使用此返回值
+ *
+ */
+size_t hobject_managed_struct_get_size(size_t struct_size);
+
+
+/** \brief获取真正的结构体指针
+ *
+ * \param obj_ptr hobject_managed_struct_t* hobject_managed_struct_t对象指针
+ * \return void* 真正的结构体指针
+ *
+ */
+void * hobject_managed_struct_get_struct_ptr(hobject_managed_struct_t *obj_ptr);
+
+/** \brief 清理hobject_managed_struct_t对象
+ *
+ * \param obj_ptr hobject_managed_struct_t* hobject_managed_struct_t对象指针
+ *
+ */
+void hobject_managed_struct_cleanup(hobject_managed_struct_t *obj_ptr);
+
+/** \brief hobject_managed_struct_t初始化
+ *
+ * \param obj_ptr hobject_managed_struct_t* hobject_managed_struct_t对象指针
+ * \param usr_type uint16_t 用户类型
+ * \param onfree 释放回调
+ *
+ */
+void hobject_managed_struct_init(hobject_managed_struct_t *obj_ptr,uint16_t usr_type,void (*onfree)(hobject_managed_struct_t *obj_ptr));
+
+/** \brief  hobject_managed_struct_t获取基类指针
+ *
+ * \param obj_ptr hobject_managed_struct_t* hobject_managed_struct_t对象指针
+ * \return hobject_base_t* hobject_base_t基类指针
+ *
+ */
+hobject_base_t * hobject_managed_struct_base(hobject_managed_struct_t *obj_ptr);
+
+/** \brief 获取hobject_managed_struct_t对象指针
+ *
+ * \param  base hobject_base_t* hobject_base_t基类指针
+ * \return hobject_managed_struct_t* hobject_managed_struct_t对象指针,失败返回NULL
+ *
+ */
+hobject_managed_struct_t * hobject_managed_struct(hobject_base_t *base);
+
 
 #ifdef __cplusplus
 }
