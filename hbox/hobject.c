@@ -105,6 +105,8 @@ void hobject_managed_ptr_cleanup(hobject_managed_ptr_t *obj_ptr)
         {
             obj_ptr->onfree(obj_ptr);
         }
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_INVALID;
     }
 }
 
@@ -146,6 +148,8 @@ void hobject_managed_array_ptr_cleanup(hobject_managed_array_ptr_t *obj_ptr)
         {
             obj_ptr->onfree(obj_ptr);
         }
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_INVALID;
     }
 }
 
@@ -482,6 +486,8 @@ void hobject_managed_struct_cleanup(hobject_managed_struct_t *obj_ptr)
         {
             obj_ptr->onfree(obj_ptr);
         }
+        hobject_base_t *base=HOBJECT_BASE(obj_ptr);
+        base->type=HOBJECT_BASE_TYPE_INVALID;
     }
 }
 

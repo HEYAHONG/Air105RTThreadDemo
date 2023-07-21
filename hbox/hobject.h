@@ -28,6 +28,7 @@ extern "C"
 
 typedef enum
 {
+    HOBJECT_BASE_TYPE_INVALID=0,/**< 无效类型 */
     HOBJECT_BASE_TYPE_SIMPLE_PTR=1,/**< 简单指针 */
     HOBJECT_BASE_TYPE_ARRAY_PTR,/**< 数组指针 */
     HOBJECT_BASE_TYPE_MANAGED_PTR,/**< 管理的指针(即带释放回调的指针) */
