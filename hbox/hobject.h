@@ -42,8 +42,8 @@ typedef enum
     HOBJECT_BASE_TYPE_UINT32, /**< 无符号整型(32位) */
     HOBJECT_BASE_TYPE_INT64, /**< 整型(64位) */
     HOBJECT_BASE_TYPE_UINT64, /**< 无符号整型(64位) */
-    HOBJECT_BASE_TYPE_STRUCT, /**< 管理的结构体(实际的结构体附在结构体基类之后,通常使用动态内存进行分配) */
-    HOBJECT_BASE_TYPE_MANAGED_STRUCT /**< 结构体(实际的结构体附在结构体基类之后,通常使用动态内存进行分配,并带释放回调的指针) */
+    HOBJECT_BASE_TYPE_STRUCT, /**< 结构体(实际的结构体附在结构体基类之后,通常使用动态内存进行分配) */
+    HOBJECT_BASE_TYPE_MANAGED_STRUCT /**< 管理的结构体(实际的结构体附在结构体基类之后,通常使用动态内存进行分配,并带释放回调的指针) */
 } hobject_base_type_t; /**< 基本对象类型 */
 
 typedef struct
