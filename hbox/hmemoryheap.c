@@ -10,6 +10,13 @@
 #include "hdefaults.h"
 #include "hmemoryheap.h"
 
+#if __STDC_VERSION__ > 199901L
+#ifndef HAVE_UINTPTR_T
+#define HAVE_UINTPTR_T 1
+#endif // HAVE_UINTPTR_T
+#endif // __STDC_VERSION__
+
+
 struct hmemoryheap_pool
 {
     //魔数,用于标记是否初始化过。未初始化过的内存池不可用。
@@ -81,6 +88,11 @@ static uint64_t shrink_size_to_aligned_size(uint64_t size)
 
 static uint64_t ptr_to_number(void *ptr)
 {
+#ifdef HAVE_UINTPTR_T
+    {
+        return (uintptr_t)ptr;
+    }
+#else
 #if PTR_SIZE == 4
     {
         return (uint32_t)ptr;
@@ -90,10 +102,16 @@ static uint64_t ptr_to_number(void *ptr)
         return (uint64_t)ptr;
     }
 #endif // VOID_PTR_SIZE
+#endif // HAVE_UINTPTR_T
 }
 
 static void * number_to_ptr(uint64_t number)
 {
+#ifdef HAVE_UINTPTR_T
+    {
+        return (void *)(uintptr_t)number;
+    }
+#else
 #if PTR_SIZE == 4
     {
         return (void *)(uint32_t)number;
@@ -103,7 +121,7 @@ static void * number_to_ptr(uint64_t number)
         return (void *)number;
     }
 #endif // PTR_SIZE
-
+#endif // HAVE_UINTPTR_T
 }
 
 /** \brief 获取hmemoryheap_pool(结构体)占用大小
