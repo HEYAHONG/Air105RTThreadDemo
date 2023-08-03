@@ -10,7 +10,7 @@
 #include "hdefaults.h"
 #include "hmemoryheap.h"
 
-#if __STDC_VERSION__ > 199901L
+#if __STDC_VERSION__ >= 199901L
 #ifndef HAVE_UINTPTR_T
 #define HAVE_UINTPTR_T 1
 #endif // HAVE_UINTPTR_T
